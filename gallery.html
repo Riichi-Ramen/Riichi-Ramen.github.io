@@ -21,6 +21,11 @@ nav{background:#fff;border-bottom:3px solid var(--red);display:flex;align-items:
 .nav-links a:hover{color:var(--red)}
 .nav-links a.active-page{color:var(--red)}
 .nav-links a.cta{background:var(--red);color:#fff;padding:8px 18px;border-radius:2px}
+.jp-mark{display:flex;justify-content:center;align-items:center;
+  background:#ffffff;padding:2.2rem 1rem 1.6rem}
+.jp-mark.below{padding:1.6rem 1rem 2.2rem}
+.jp-mark img{height:70px;width:auto;display:block;opacity:.92}
+@media(max-width:600px){.jp-mark img{height:54px}}
 .page-hero{background:var(--ink);padding:2.5rem 2rem;text-align:center}
 .page-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,4vw,48px);color:var(--sand);letter-spacing:.05em}
 .page-hero p{font-size:13px;color:#7a6e5e;margin-top:.5rem;letter-spacing:.1em}
@@ -72,9 +77,17 @@ footer{background:#100c06;padding:1.5rem 2rem;display:flex;justify-content:space
   </ul>
 </nav>
 
+<div class="jp-mark">
+  <img src="images/index-wabi-navi.jpg" alt="和美なび">
+</div>
+
 <div class="page-hero">
   <h1 data-pl="Galeria" data-en="Gallery" data-ja="ギャラリー" data-uk="Галерея" data-be="Галерэя">Galeria</h1>
   <p data-pl="Smaki Wabi Navi w obiektywie" data-en="Wabi Navi flavors through the lens" data-ja="料理の世界" data-uk="Смаки Wabi Navi" data-be="Смакі Wabi Navi">Smaki Wabi Navi w obiektywie</p>
+</div>
+
+<div class="jp-mark below">
+  <img src="images/index-img-3.png" alt="わびなび">
 </div>
 
 <div class="gallery-filter">
