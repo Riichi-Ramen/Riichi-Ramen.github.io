@@ -152,6 +152,17 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
 }
 
 /* === 会員連動バナー / Baner członkowski (v6.9) === */
+.jp-mark{display:flex;justify-content:center;align-items:center;
+  background:var(--white);padding:2.2rem 1rem 1.6rem}
+.jp-mark.below{padding:1.6rem 1rem 2.2rem}
+.jp-mark img{height:70px;width:auto;display:block;opacity:.92}
+@media(max-width:600px){.jp-mark img{height:54px}}
+.member-prompt{display:flex;gap:.6rem;align-items:flex-start;margin:0 0 1.1rem;
+  padding:.8rem .95rem;background:#fdf6e3;border-left:3px solid var(--gold);
+  border-radius:3px;font-size:12.5px;line-height:1.6;color:#5c4708}
+.member-prompt.hidden{display:none}
+.member-prompt .mp-ico{flex:none;font-size:15px;line-height:1.3}
+.member-prompt b{font-weight:600}
 .member-banner{display:none;margin:0 0 1rem;padding:.85rem 1rem;border-radius:3px;font-size:12.5px;line-height:1.6}
 .member-banner.checking{background:#f5f0e8;border-left:3px solid var(--stone);color:var(--muted)}
 .member-banner.is-member{background:#fdf6e3;border-left:3px solid var(--gold);color:#5c4708}
@@ -180,9 +191,7 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
 
 <nav>
   <div class="nav-logo">
-    <img src="images/index-img-2.jpg" alt="Wabi Navi" style="height:120px;width:auto;display:block;">
-    <img src="images/index-wabi-navi.jpg" alt="和美なび" style="height:120px;width:auto;display:block;">
-    <img src="images/index-img-3.png" alt="わびなび" style="height:120px;width:auto;display:block;">
+    <img src="images/index-img-2.jpg" alt="Wabi Navi" style="height:76px;width:auto;display:block;">
   </div>
   <ul class="nav-links">
     <li><a href="menu.html" data-pl="Menu" data-en="Menu" data-ja="メニュー" data-uk="Меню" data-be="Меню">Menu</a></li>
@@ -279,6 +288,10 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
   </div>
 </section>
 
+<div class="jp-mark">
+  <img src="images/index-wabi-navi.jpg" alt="和美なび">
+</div>
+
 <div class="philosophy" id="onas">
   <div class="philo-item">
     <span class="philo-kanji">技</span><p class="philo-en">Craft</p>
@@ -292,6 +305,10 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
     <span class="philo-kanji">和</span><p class="philo-en">Harmony</p>
     <p class="philo-desc" data-pl="Japońska gościnność omotenashi w sercu Torunia" data-en="Japanese omotenashi hospitality in historic Toruń" data-ja="歴史あるトルンでのおもてなし">Japońska gościnność omotenashi w sercu Torunia</p>
   </div>
+</div>
+
+<div class="jp-mark below">
+  <img src="images/index-img-3.png" alt="わびなび">
 </div>
 
 <section class="section section-alt">
@@ -338,18 +355,23 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
     </div>
   </div>
   <div>
+    <div id="memberPrompt" class="member-prompt">
+      <span class="mp-ico">⭐</span>
+      <span data-pl="Masz już konto w Wabi Navi Club? Wystarczy wpisać e-mail — rozpoznamy Cię automatycznie." data-en="Already a Wabi Navi Club member? Just enter your email — we'll recognise you automatically." data-ja="Wabi Navi Club の会員の方は、メールアドレスを入力するだけで自動的に認識されます。" data-uk="Вже маєте акаунт у Wabi Navi Club? Просто введіть e-mail — ми впізнаємо вас." data-be="Ужо маеце акаўнт у Wabi Navi Club? Проста ўвядзіце e-mail — мы вас пазнаем.">Masz już konto w Wabi Navi Club? Wystarczy wpisać e-mail — rozpoznamy Cię automatycznie.</span>
+    </div>
     <div id="memberBanner" class="member-banner"></div>
     <div id="resResult" class="res-result"></div>
     <form id="reservationForm" onsubmit="submitReservation(event)">
       <div class="hp-field"><label>Nie wypełniaj</label><input type="text" id="resHp" tabindex="-1" autocomplete="off"></div>
       <div class="form-group">
         <label data-pl="E-mail" data-en="Email" data-ja="メールアドレス" data-uk="E-mail" data-be="E-mail">E-mail</label>
-        <input type="email" id="resEmail" required placeholder="jan@example.com" onblur="checkMember()">
+        <input type="email" id="resEmail" required placeholder="jan@example.com" oninput="checkMemberDebounced()" onblur="checkMember()">
         <p class="res-note-small" data-pl="Na ten adres wyślemy potwierdzenie. Członkowie są rozpoznawani automatycznie." data-en="Confirmation is sent to this address. Members are recognised automatically." data-ja="このアドレスに確認メールをお送りします。会員の方は自動で認識されます。" data-uk="На цю адресу надішлемо підтвердження." data-be="На гэты адрас дашлём пацвярджэнне.">Na ten adres wyślemy potwierdzenie. Członkowie są rozpoznawani automatycznie.</p>
       </div>
       <div class="form-group">
         <label data-pl="Imię i nazwisko" data-en="Full name" data-ja="お名前" data-uk="Ім'я та прізвище" data-be="Імя і прозвішча">Imię i nazwisko</label>
         <input type="text" id="resName" required placeholder="Jan Kowalski">
+        <p class="res-note-small member-only" id="nameNote" style="display:none" data-pl="Rozpoznaliśmy Twoje konto — możesz pominąć to pole." data-en="We recognised your account — you can leave this blank." data-ja="会員として確認できたため、この欄は空欄で構いません。" data-uk="Ми впізнали ваш акаунт — можете залишити порожнім." data-be="Мы пазналі ваш акаўнт — можаце пакінуць пустым.">Rozpoznaliśmy Twoje konto — możesz pominąć to pole.</p>
       </div>
       <div class="form-group">
         <label data-pl="Telefon kontaktowy" data-en="Phone number" data-ja="電話番号" data-uk="Телефон" data-be="Тэлефон">Telefon kontaktowy</label>
@@ -571,6 +593,9 @@ var lastCheckedEmail = '', isMemberCached = null;
 function renderMemberBanner(){
   var box = document.getElementById('memberBanner');
   if (!box) return;
+  var prompt = document.getElementById('memberPrompt');
+  if (prompt) prompt.classList.toggle('hidden', isMemberCached !== null);
+  applyMemberFieldRules();
   if (isMemberCached === null){ box.style.display = 'none'; return; }
   box.style.display = 'block';
   if (isMemberCached === 'checking'){
@@ -593,6 +618,26 @@ function renderMemberBanner(){
     a.textContent = t('guestCta');
     a.href = REGISTER_URL;
   }
+}
+
+var _cmTimer = null;
+function checkMemberDebounced(){
+  clearTimeout(_cmTimer);
+  _cmTimer = setTimeout(checkMember, 700);   // 入力が止まって0.7秒後に照合
+}
+
+// 会員と確認できたら、氏名・電話は任意にする（会員台帳から補完される）
+function applyMemberFieldRules(){
+  var isMember = (isMemberCached === true);
+  var nm = document.getElementById('resName');
+  var ph = document.getElementById('resPhone');
+  var nt = document.getElementById('nameNote');
+  if (!nm) return;
+  nm.required = !isMember;
+  if (nt) nt.style.display = isMember ? 'block' : 'none';
+  [nm, ph].forEach(function(el){
+    if (el) el.placeholder = isMember ? '—' : (el === nm ? 'Jan Kowalski' : '+48 000 000 000');
+  });
 }
 
 function checkMember(){
