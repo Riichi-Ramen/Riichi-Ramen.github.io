@@ -8,7 +8,8 @@
 <style>
 
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--ink:#1a1208;--red:#c0392b;--gold:#b7860b;--sand:#f9f4eb;--stone:#e0d8c8;--text:#2c2416;--muted:#7a6e5e;--white:#ffffff}
+:root{--ink:#1a1208;--red:#c0392b;--gold:#b7860b;--sand:#f9f4eb;
+  --band:#efe7d8;   /* 帯の背景（和紙色）。色を変えるならここ1行 */--stone:#e0d8c8;--text:#2c2416;--muted:#7a6e5e;--white:#ffffff}
 html{scroll-behavior:smooth}
 body{font-family:"Inter",sans-serif;color:var(--text);background:var(--white)}
 .lang-bar{background:#f5f0e8;border-bottom:1px solid var(--stone);display:flex;justify-content:flex-end;padding:0 2rem}
@@ -23,14 +24,18 @@ nav{background:#fff;border-bottom:3px solid var(--red);display:flex;align-items:
 .nav-links a.active-page{color:var(--red)}
 .nav-links a.cta{background:var(--red);color:#fff;padding:8px 18px;border-radius:2px}
 
-.jp-mark{display:flex;justify-content:center;align-items:center;
-  background:#ffffff;padding:2.2rem 1rem 1.6rem}
-.jp-mark.below{padding:1.6rem 1rem 2.2rem}
-.jp-mark img{height:70px;width:auto;display:block;opacity:.92}
-@media(max-width:600px){.jp-mark img{height:54px}}
-.page-hero{background:var(--ink);padding:2.5rem 2rem;text-align:center}
-.page-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,4vw,48px);color:var(--sand);letter-spacing:.05em}
-.page-hero p{font-size:13px;color:#7a6e5e;margin-top:.5rem;letter-spacing:.1em;text-transform:uppercase}
+.page-hero{background:var(--band);padding:2.5rem 2rem;
+  display:flex;align-items:center;justify-content:center;gap:clamp(1.2rem,5vw,4rem)}
+.page-hero .hero-text{text-align:center}
+.hero-mark{height:82px;width:auto;flex:none;opacity:.95}
+@media(max-width:760px){
+  .hero-mark{height:52px}
+  .page-hero{gap:1rem;padding:2rem 1rem}
+}
+@media(max-width:460px){.hero-mark{display:none}}
+
+.page-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,4vw,48px);color:var(--text);letter-spacing:.05em}
+.page-hero p{font-size:13px;color:#8a7c66;margin-top:.5rem;letter-spacing:.1em;text-transform:uppercase}
 .menu-nav{display:flex;justify-content:center;gap:.75rem;padding:1.5rem 2rem;flex-wrap:wrap;background:var(--sand);border-bottom:1px solid var(--stone)}
 .menu-tab{background:none;border:1px solid var(--stone);color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:9px 20px;cursor:pointer;font-family:"Inter",sans-serif;transition:all .2s;border-radius:2px}
 .menu-tab.active,.menu-tab:hover{background:var(--red);border-color:var(--red);color:#fff}
@@ -86,17 +91,13 @@ footer{background:#100c06;padding:1.5rem 2rem;display:flex;justify-content:space
   </ul>
 </nav>
 
-<div class="jp-mark">
-  <img src="images/index-wabi-navi.jpg" alt="和美なび">
-</div>
-
 <div class="page-hero">
-  <h1 data-pl="Menu" data-en="Menu" data-ja="メニュー" data-uk="Меню" data-be="Меню">Menu</h1>
+  <img class="hero-mark" src="images/logo-kanji-light.png" alt="和美なび">
+  <div class="hero-text">
+    <h1 data-pl="Menu" data-en="Menu" data-ja="メニュー" data-uk="Меню" data-be="Меню">Menu</h1>
   <p data-pl="Kuchnia japońska · Toruń" data-en="Japanese cuisine · Toruń" data-ja="日本料理 · トルン" data-uk="Японська кухня · Торунь" data-be="Японская кухня · Торунь">Kuchnia japońska · Toruń</p>
-</div>
-
-<div class="jp-mark below">
-  <img src="images/index-img-3.png" alt="わびなび">
+  </div>
+  <img class="hero-mark" src="images/logo-kana-light.png" alt="わびなび">
 </div>
 
 <div class="menu-nav">
