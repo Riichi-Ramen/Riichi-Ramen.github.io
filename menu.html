@@ -83,15 +83,20 @@ body{
 
 /* 署名：品書きの縦書き。写真の左端に短冊のように重ねる */
 .tanzaku{position:absolute;top:0;left:.7rem;padding:.55rem .3rem .7rem;
-  font-family:var(--jp);font-size:.82rem;font-weight:500;letter-spacing:.12em;
-  writing-mode:vertical-rl;white-space:nowrap;color:#fffcf5;
-  background:rgba(44,24,16,.72);max-height:88%;overflow:hidden;
+  font-family:var(--jp);font-size:.82rem;font-weight:500;letter-spacing:.1em;
+  writing-mode:vertical-rl;color:#fffcf5;
+  background:rgba(44,24,16,.72);max-height:86%;max-width:60%;overflow:hidden;
   text-shadow:0 1px 3px rgba(0,0,0,.5)}
+/* 長い品名は級数を落として2〜3列に流す（縦書きの通常の組み方） */
+.tanzaku.long{font-size:.68rem;letter-spacing:.02em;padding:.45rem .25rem .55rem}
+/* 縦中横：1〜2桁の数字は寝かせず正立させる（「2個」「3個」など） */
+.tanzaku .tcy{text-combine-upright:all;-webkit-text-combine:horizontal;letter-spacing:0}
 /* 写真がまだ無い品は、日本語名そのものを品書きとして大きく見せる */
-.noshot .tanzaku{top:0;bottom:0;left:0;right:0;padding:1.4rem .3rem;
-  display:grid;place-content:center;max-height:none;
-  font-size:clamp(1.1rem,4.4vw,1.6rem);color:var(--ink);opacity:.32;
+.noshot .tanzaku{top:0;bottom:0;left:0;right:0;padding:1.1rem .4rem;
+  display:grid;place-content:center;max-height:100%;max-width:100%;
+  font-size:clamp(1rem,4vw,1.5rem);color:var(--ink);opacity:.32;
   background:transparent;text-shadow:none}
+.noshot .tanzaku.long{font-size:clamp(.72rem,2.4vw,.92rem);letter-spacing:.04em}
 .noshot{display:flex;align-items:center;justify-content:center}
 .noshot::after{content:"";position:absolute;inset:.6rem;border:1px solid var(--border)}
 
@@ -205,6 +210,15 @@ let DATA = null;
 const esc = s => String(s ?? '').replace(/[&<>"']/g,
   c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+/* 縦書き用に日本語名を整える
+   ・半角括弧 ( ) は縦書きで倒れるため全角（）に置換
+   ・1〜2桁の数字は「縦中横」で正立させる（3桁以上は慣例どおり横倒しのまま）*/
+function tategaki(jp) {
+  return esc(jp)
+    .replace(/\(/g, '（').replace(/\)/g, '）')
+    .replace(/\d+/g, d => d.length <= 2 ? `<span class="tcy">${d}</span>` : d);
+}
+
 /* ── 取得（メニュー＋非表示リスト） ───────────────────────── */
 async function fetchMenu(force) {
   if (!force) {
@@ -261,7 +275,7 @@ function card(it, feature) {
     <div class="shot" data-key="${esc(key)}">
       <img src="${esc(src)}" alt="${esc(name)}" loading="lazy" decoding="async"
            onerror="this.parentElement.classList.add('noshot');this.remove()">
-      ${jp ? `<div class="tanzaku" aria-hidden="true">${esc(jp)}</div>` : ''}
+      ${jp ? `<div class="tanzaku${jp.length > 8 ? ' long' : ''}" aria-hidden="true">${tategaki(jp)}</div>` : ''}
       ${it.origPrice ? `<div class="ribbon">${esc(t.promo)}</div>` : ''}
       ${veil ? `<div class="veil"><span>${esc(veil)}</span></div>` : ''}
     </div>
