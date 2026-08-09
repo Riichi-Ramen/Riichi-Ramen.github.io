@@ -30,7 +30,6 @@ nav{background:#fff;border-bottom:3px solid var(--red);display:flex;align-items:
   .hero-mark{height:52px}
   .page-hero{gap:1rem;padding:2rem 1rem}
 }
-@media(max-width:460px){.hero-mark{display:none}}
 
 .page-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,4vw,48px);color:var(--text);letter-spacing:.05em}
 .page-hero p{font-size:13px;color:#8a7c66;margin-top:.5rem;letter-spacing:.1em}
@@ -60,6 +59,20 @@ footer{background:#100c06;padding:1.5rem 2rem;display:flex;justify-content:space
 @media(max-width:600px){
   .gallery-grid{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ── スマホ最適化（v6.9）────────────────────────── */
+@media(max-width:768px){
+  nav{padding:.4rem 1.1rem}
+  .nav-logo img{height:56px!important}
+  .page-hero{padding:1.8rem 1rem;gap:.9rem}
+  .hero-mark{height:46px}
+}
+@media(max-width:480px){
+  .nav-logo img{height:48px!important}
+  nav{padding:.35rem .9rem}
+  .hero-mark{height:38px}
+  .page-hero{gap:.6rem;padding:1.5rem .8rem}
+}
 </style>
 </head>
 <body>
@@ -72,7 +85,7 @@ footer{background:#100c06;padding:1.5rem 2rem;display:flex;justify-content:space
 </div>
 <nav>
   <div class="nav-logo">
-    <img src="images/index-img-2.jpg" alt="Wabi Navi" style="height:76px;width:auto;display:block;">
+    <img src="images/logo-main.png" alt="Wabi Navi" style="height:84px;width:auto;display:block;">
   </div>
   <ul class="nav-links">
     <li><a href="index.html" data-pl="Strona główna" data-en="Home" data-ja="ホーム" data-uk="Головна" data-be="Галоўная">Strona główna</a></li>
@@ -262,7 +275,7 @@ footer{background:#100c06;padding:1.5rem 2rem;display:flex;justify-content:space
 </div>
 
 <footer>
-  <div class="footer-logo"><img src="images/index-img-2.jpg" alt="Wabi Navi"></div>
+  <div class="footer-logo"><img src="images/logo-main.png" alt="Wabi Navi"></div>
   <div style="text-align:right;font-size:10px;color:#4a4238">© 2025 Wabi Navi · ul. Małe Garbary 5A, Toruń</div>
 </footer>
 

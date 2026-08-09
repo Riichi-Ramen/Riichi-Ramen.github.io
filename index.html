@@ -29,7 +29,7 @@ body{font-family:"Inter",sans-serif;color:var(--text);background:var(--white)}
 .lang-bar button.active{color:var(--red);border-bottom-color:var(--red);font-weight:500}
 
 /* NAV - 白背景 */
-nav{background:#ffffff;border-bottom:3px solid #c0392b;border-bottom:3px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:.5rem 2rem}
+nav{background:#ffffff;border-bottom:3px solid #c0392b;border-bottom:3px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:.5rem clamp(1.2rem,6vw,7rem)}
 .nav-logo{display:flex;align-items:center;gap:12px}.nav-logo img{height:60px;width:auto;display:block}
 .nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
 .nav-links a{color:#333333;text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
@@ -140,7 +140,7 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
   .ramen-grid{grid-template-columns:repeat(2,1fr)}
   .sides-grid{grid-template-columns:repeat(2,1fr)}
   .philosophy{grid-template-columns:1fr;gap:2rem}
-  .philo-item{border-right:none;border-bottom:1px solid rgba(249,244,235,.08);padding:0 0 2rem}
+  .philo-item{border-right:none;border-bottom:1px solid rgba(44,36,22,.14);padding:0 0 2rem}
   .philo-item:last-child{border-bottom:none;padding-bottom:0}
   .reservation{grid-template-columns:1fr;gap:2rem}
   .section,.section-alt,.reservation{padding:3rem 1.25rem}
@@ -153,7 +153,6 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
 }
 
 /* === 会員連動バナー / Baner członkowski (v6.9) === */
-@media(max-width:900px){.philosophy{grid-template-columns:repeat(3,1fr);gap:0}}
 .philo-mark{display:flex;align-items:center;justify-content:center;padding:0 .5rem}
 .philo-mark img{height:74px;width:auto;opacity:.95}
 @media(max-width:1100px){.philo-mark{display:none}}
@@ -177,6 +176,26 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
 .res-result .rr-id{font-family:monospace;font-size:15px;font-weight:700;letter-spacing:.05em}
 .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .res-note-small{font-size:11px;color:var(--muted);margin-top:.4rem;line-height:1.5}
+
+/* ── スマホ最適化（v6.9）────────────────────────── */
+@media(max-width:768px){
+  nav{padding:.4rem 1.1rem}
+  .nav-logo img{height:56px!important}
+  .philosophy{padding:2.5rem 1.5rem}
+  .philo-kanji{font-size:36px}
+  .philo-desc{font-size:13px}
+  .member-prompt,.member-banner{font-size:13px;padding:.85rem .9rem}
+  .form-row{grid-template-columns:1fr!important;gap:0 .75rem}
+  .btn-submit{padding:16px;font-size:13px}
+  input,select,textarea{font-size:16px!important}   /* iOSの自動ズーム防止 */
+  .res-title{font-size:clamp(24px,7vw,34px)}
+}
+@media(max-width:480px){
+  .nav-logo img{height:48px!important}
+  nav{padding:.35rem .9rem}
+  .philosophy{padding:2rem 1.1rem}
+  .hours-strip{font-size:11px;padding:.7rem 1rem;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -191,7 +210,7 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
 
 <nav>
   <div class="nav-logo">
-    <img src="images/index-img-2.jpg" alt="Wabi Navi" style="height:76px;width:auto;display:block;">
+    <img src="images/logo-main.png" alt="Wabi Navi" style="height:84px;width:auto;display:block;">
   </div>
   <ul class="nav-links">
     <li><a href="menu.html" data-pl="Menu" data-en="Menu" data-ja="メニュー" data-uk="Меню" data-be="Меню">Menu</a></li>
