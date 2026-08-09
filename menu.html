@@ -2,382 +2,372 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Menu – Wabi Navi Ramen, Toruń</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Menu — Wabi Navi 和美なび | Ramen w Toruniu</title>
+<meta name="description" content="Aktualne menu Wabi Navi w Toruniu — ramen, onigiri, przystawki, napoje. Ceny i dostępność aktualizowane na bieżąco.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 日本語表記にだけ使う明朝体。ポーランド語は端末フォントのまま（ą/ł/ż の欠字を避けるため） -->
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--ink:#1a1208;--red:#c0392b;--gold:#b7860b;--sand:#f9f4eb;
-  --band:#efe7d8;   /* 帯の背景（和紙色）。色を変えるならここ1行 */--stone:#e0d8c8;--text:#2c2416;--muted:#7a6e5e;--white:#ffffff}
+:root{
+  --bg:#f7f0e6;          /* 生成りの和紙 */
+  --card:#fffcf5;
+  --ink:#2c1810;         /* 墨 */
+  --accent:#c0392b;      /* 暖簾の朱 */
+  --gold:#c8a96e;
+  --muted:#7a6858;
+  --border:rgba(180,140,110,.35);
+  --sold:#8a7a6a;
+  --jp:'Shippori Mincho','Yu Mincho','Hiragino Mincho ProN',serif;
+  --ui:'Segoe UI',system-ui,-apple-system,sans-serif;
+}
+
 html{scroll-behavior:smooth}
-body{font-family:"Inter",sans-serif;color:var(--text);background:var(--white)}
-.lang-bar{background:#f5f0e8;border-bottom:1px solid var(--stone);display:flex;justify-content:flex-end;padding:0 2rem}
-.lang-bar button{background:none;border:none;border-bottom:2px solid transparent;color:#666;font-size:11px;padding:7px 10px;cursor:pointer;letter-spacing:.08em;font-family:"Inter",sans-serif;transition:color .2s,border-color .2s}
-.lang-bar button.active{color:var(--red);border-bottom-color:var(--red);font-weight:500}
-nav{background:#fff;border-bottom:3px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:.5rem 2rem;flex-wrap:wrap;gap:.5rem}
-.nav-logo{display:flex;align-items:center;gap:10px}
-.nav-logo img{height:64px;width:auto}
-.nav-links{display:flex;gap:1.25rem;list-style:none;align-items:center;flex-wrap:wrap}
-.nav-links a{color:#333;text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
-.nav-links a:hover{color:var(--red)}
-.nav-links a.active-page{color:var(--red)}
-.nav-links a.cta{background:var(--red);color:#fff;padding:8px 18px;border-radius:2px}
-
-.page-hero{background:var(--band);padding:2.5rem 2rem;
-  display:flex;align-items:center;justify-content:center;gap:clamp(1.2rem,5vw,4rem)}
-.page-hero .hero-text{text-align:center}
-.hero-mark{height:82px;width:auto;flex:none;opacity:.95}
-@media(max-width:760px){
-  .hero-mark{height:52px}
-  .page-hero{gap:1rem;padding:2rem 1rem}
+body{
+  font-family:var(--ui);color:var(--ink);
+  background:var(--bg);
+  background-image:radial-gradient(rgba(180,140,110,.10) 1px,transparent 1px);
+  background-size:22px 22px;
+  line-height:1.6;
 }
 
-.page-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,4vw,48px);color:var(--text);letter-spacing:.05em}
-.page-hero p{font-size:13px;color:#8a7c66;margin-top:.5rem;letter-spacing:.1em;text-transform:uppercase}
-.menu-nav{display:flex;justify-content:center;gap:.75rem;padding:1.5rem 2rem;flex-wrap:wrap;background:var(--sand);border-bottom:1px solid var(--stone)}
-.menu-tab{background:none;border:1px solid var(--stone);color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:9px 20px;cursor:pointer;font-family:"Inter",sans-serif;transition:all .2s;border-radius:2px}
-.menu-tab.active,.menu-tab:hover{background:var(--red);border-color:var(--red);color:#fff}
-.lang-switch{display:flex;justify-content:center;gap:.5rem;padding:1rem 2rem;background:var(--white);border-bottom:1px solid var(--stone)}
-.lang-switch button{background:none;border:1px solid var(--stone);color:var(--muted);font-size:11px;padding:5px 14px;cursor:pointer;font-family:"Inter",sans-serif;border-radius:2px;transition:all .2s}
-.lang-switch button.active{background:var(--ink);border-color:var(--ink);color:var(--sand)}
-.menu-section{display:none;padding:3rem 2rem;max-width:1000px;margin:0 auto}
-.menu-section.active{display:block}
-.menu-category{margin-bottom:2.5rem}
-.category-title{font-family:"Noto Serif JP",serif;font-size:20px;color:var(--ink);border-bottom:2px solid var(--red);padding-bottom:.5rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
-.category-title .jp{font-size:14px;color:var(--muted)}
-.menu-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.menu-item{background:var(--sand);padding:1rem 1.25rem;border-left:3px solid transparent;transition:border-color .2s}
-.menu-item:hover{border-left-color:var(--red)}
-.item-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.3rem;gap:.5rem}
-.item-name{font-weight:500;font-size:13px;color:var(--ink);flex:1}
-.item-jp{font-size:11px;color:var(--muted);font-family:"Noto Serif JP",serif}
-.item-price{font-weight:600;font-size:13px;color:var(--red);white-space:nowrap}
-.item-desc{font-size:11px;color:var(--muted);line-height:1.6}
-.item-base{font-size:10px;color:#999;margin-top:.3rem;font-style:italic}
-.badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:2px;margin-left:4px;vertical-align:middle}
-.badge-veg{background:#e8f5e9;color:#2e7d32}
-.badge-spicy{background:#fce4ec;color:#c62828}
-.badge-special{background:#fff3e0;color:#e65100}
-.divider-red{height:2px;background:var(--red);width:36px;margin-bottom:1rem}
-footer{background:#100c06;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:3rem}
-.footer-logo img{height:48px;width:auto}
-.footer-right{text-align:right;font-size:11px;color:#4a4238}
-@media(max-width:600px){
-  .menu-items{grid-template-columns:1fr}
-  .menu-nav{gap:.5rem}
-  .menu-tab{font-size:11px;padding:7px 14px}
-}
+/* ── 見出し ───────────────────────────────── */
+.head{padding:2.6rem 1.2rem 1.4rem;text-align:center;max-width:1180px;margin:0 auto}
+.head .jp{font-family:var(--jp);font-size:.95rem;color:var(--accent);letter-spacing:.5em;
+  margin-bottom:.5rem}
+.head h1{font-size:clamp(1.7rem,5vw,2.6rem);font-weight:700;letter-spacing:.02em}
+.head p{color:var(--muted);font-size:.9rem;margin-top:.55rem}
+.updated{font-size:.72rem;color:var(--muted);margin-top:.5rem;opacity:.85}
 
-/* ── スマホ最適化（v6.9）────────────────────────── */
-@media(max-width:768px){
-  nav{padding:.4rem 1.1rem}
-  .nav-logo img{height:56px!important}
-  .page-hero{padding:1.8rem 1rem;gap:.9rem}
-  .hero-mark{height:46px}
-}
-@media(max-width:480px){
-  .nav-logo img{height:48px!important}
-  nav{padding:.35rem .9rem}
-  .hero-mark{height:38px}
-  .page-hero{gap:.6rem;padding:1.5rem .8rem}
+/* ── 言語切替 ─────────────────────────────── */
+.lang{display:flex;gap:.3rem;justify-content:center;margin-top:1rem}
+.lang button{font-family:var(--ui);font-size:.74rem;padding:.32rem .95rem;cursor:pointer;
+  border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:999px}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* ── カテゴリナビ ─────────────────────────── */
+.nav{position:sticky;top:0;z-index:50;background:rgba(247,240,230,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1180px;margin:0 auto;display:flex;gap:.4rem;overflow-x:auto;
+  padding:.7rem 1.2rem;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav a{flex:0 0 auto;font-size:.78rem;text-decoration:none;color:var(--muted);
+  padding:.35rem .85rem;border:1px solid var(--border);border-radius:999px;white-space:nowrap}
+.nav a:hover,.nav a:focus-visible{color:var(--accent);border-color:var(--accent)}
+
+/* ── セクション ───────────────────────────── */
+.wrap{max-width:1180px;margin:0 auto;padding:0 1.2rem 4rem}
+.sec{padding-top:2.8rem;scroll-margin-top:64px}
+.sec-head{display:flex;align-items:baseline;gap:.7rem;margin-bottom:1.2rem;
+  padding-bottom:.6rem;border-bottom:2px solid var(--ink)}
+.sec-head h2{font-size:1.22rem;font-weight:700;letter-spacing:.01em}
+.sec-head .sub{font-size:.75rem;color:var(--muted)}
+.sec-head .cnt{margin-left:auto;font-size:.72rem;color:var(--muted);white-space:nowrap}
+
+/* ── グリッド ─────────────────────────────── */
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(228px,1fr))}
+.grid.feature{grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:1.3rem}
+
+/* ── カード ───────────────────────────────── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:3px;
+  overflow:hidden;display:flex;flex-direction:column;position:relative}
+.shot{position:relative;aspect-ratio:4/3;overflow:hidden;background:#efe4d4}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.card:hover .shot img{transform:scale(1.05)}
+
+/* 署名：品書きの縦書き。写真の左端に短冊のように重ねる */
+.tanzaku{position:absolute;top:0;left:.7rem;padding:.55rem .3rem .7rem;
+  font-family:var(--jp);font-size:.82rem;font-weight:500;letter-spacing:.12em;
+  writing-mode:vertical-rl;white-space:nowrap;color:#fffcf5;
+  background:rgba(44,24,16,.72);max-height:88%;overflow:hidden;
+  text-shadow:0 1px 3px rgba(0,0,0,.5)}
+/* 写真がまだ無い品は、日本語名そのものを品書きとして大きく見せる */
+.noshot .tanzaku{top:0;bottom:0;left:0;right:0;padding:1.4rem .3rem;
+  display:grid;place-content:center;max-height:none;
+  font-size:clamp(1.1rem,4.4vw,1.6rem);color:var(--ink);opacity:.32;
+  background:transparent;text-shadow:none}
+.noshot{display:flex;align-items:center;justify-content:center}
+.noshot::after{content:"";position:absolute;inset:.6rem;border:1px solid var(--border)}
+
+.body{padding:.85rem .9rem 1rem;display:flex;flex-direction:column;flex:1;gap:.3rem}
+.name{font-size:.94rem;font-weight:700;line-height:1.32}
+.name-sub{font-size:.72rem;color:var(--muted)}
+.desc{font-size:.78rem;color:var(--muted);margin-top:.15rem;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.feature .desc{-webkit-line-clamp:3}
+.foot{margin-top:auto;padding-top:.6rem;display:flex;align-items:baseline;gap:.45rem}
+.price{font-size:1.06rem;font-weight:700;font-variant-numeric:tabular-nums}
+.was{font-size:.78rem;color:var(--muted);text-decoration:line-through}
+.tags{display:flex;gap:.3rem;margin-left:auto;align-items:center}
+.tag{font-size:.65rem;padding:.1rem .42rem;border-radius:2px;border:1px solid var(--border);
+  color:var(--muted);white-space:nowrap}
+.tag.vege{color:#2d7a3a;border-color:#2d7a3a}
+.tag.hot{color:var(--accent);border-color:var(--accent)}
+
+/* ── 帯（おすすめ・売切・準備中） ─────────── */
+.ribbon{position:absolute;top:.7rem;right:0;font-size:.66rem;font-weight:700;
+  padding:.22rem .6rem;color:#fffcf5;background:var(--accent);letter-spacing:.02em}
+.card.off{opacity:.62}
+/* 売切・準備中は「Wyprzedane / Wkrótce」を主役にし、品書きは引っ込める */
+.card.off .tanzaku{display:none}
+.card.off .shot img{filter:grayscale(.85)}
+.veil{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(44,24,16,.42)}
+.veil span{font-family:var(--jp);font-size:1rem;color:#fffcf5;letter-spacing:.2em;
+  border:1px solid rgba(255,252,245,.8);padding:.35rem 1rem}
+
+.promo-note{font-size:.7rem;color:var(--accent);font-weight:700;margin-top:.2rem}
+.promo-till{font-size:.68rem;color:var(--muted);font-weight:400}
+
+/* ── 状態表示 ─────────────────────────────── */
+.state{text-align:center;padding:3.5rem 1rem;color:var(--muted);font-size:.88rem}
+.spin{width:30px;height:30px;margin:0 auto 1rem;border:3px solid var(--border);
+  border-top-color:var(--accent);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.retry{margin-top:1rem;font-family:var(--ui);font-size:.8rem;padding:.5rem 1.2rem;
+  border:1px solid var(--accent);color:var(--accent);background:transparent;
+  border-radius:999px;cursor:pointer}
+
+.foot-note{text-align:center;font-size:.74rem;color:var(--muted);
+  padding:2.4rem 1.2rem 1rem;max-width:640px;margin:0 auto}
+.foot-note a{color:var(--accent)}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
-<div class="lang-bar">
-  <button class="active" onclick="setLang('pl',this)">PL</button>
-  <button onclick="setLang('en',this)">EN</button>
-  <button onclick="setLang('uk',this)">УК</button>
-  <button onclick="setLang('be',this)">БЕ</button>
-  <button onclick="setLang('ja',this)">日本語</button>
-</div>
-<nav>
-  <div class="nav-logo">
-    <img src="images/logo-main.png" alt="Wabi Navi" style="height:84px;width:auto;display:block;">
-  </div>
-  <ul class="nav-links">
-    <li><a href="index.html" data-pl="Strona główna" data-en="Home" data-ja="ホーム" data-uk="Головна" data-be="Галоўная">Strona główna</a></li>
-    <li><a href="menu.html" class="active-page" data-pl="Menu" data-en="Menu" data-ja="メニュー" data-uk="Меню" data-be="Меню">Menu</a></li>
-    <li><a href="gallery.html" data-pl="Galeria" data-en="Gallery" data-ja="ギャラリー" data-uk="Галерея" data-be="Галерэя">Galeria</a></li>
-    <li><a href="index.html#rezerwacja" class="cta" data-pl="Rezerwacja" data-en="Reserve" data-ja="ご予約" data-uk="Бронювання" data-be="Браніраванне">Rezerwacja</a></li>
-  </ul>
-</nav>
 
-<div class="page-hero">
-  <img class="hero-mark" src="images/logo-kanji-light.png" alt="和美なび">
-  <div class="hero-text">
-    <h1 data-pl="Menu" data-en="Menu" data-ja="メニュー" data-uk="Меню" data-be="Меню">Menu</h1>
-  <p data-pl="Kuchnia japońska · Toruń" data-en="Japanese cuisine · Toruń" data-ja="日本料理 · トルン" data-uk="Японська кухня · Торунь" data-be="Японская кухня · Торунь">Kuchnia japońska · Toruń</p>
+<header class="head">
+  <div class="jp">品書き</div>
+  <h1 data-t="title">Menu</h1>
+  <p data-t="lead">Ceny i dostępność pobierane są na żywo z naszej kuchni.</p>
+  <div class="updated" id="updated"></div>
+  <div class="lang" role="group" aria-label="Język / Language">
+    <button type="button" data-lang="pl" aria-pressed="true">Polski</button>
+    <button type="button" data-lang="en" aria-pressed="false">English</button>
   </div>
-  <img class="hero-mark" src="images/logo-kana-light.png" alt="わびなび">
-</div>
+</header>
 
-<div class="menu-nav">
-  <button class="menu-tab active" onclick="showSection('ramen',this)" data-pl="Ramen ラーメン" data-en="Ramen ラーメン" data-ja="ラーメン" data-uk="Рамен" data-be="Рамен">Ramen ラーメン</button>
-  <button class="menu-tab" onclick="showSection('starter',this)" data-pl="Przystawki 前菜" data-en="Starters 前菜" data-ja="前菜" data-uk="Закуски" data-be="Закускі">Przystawki 前菜</button>
-  <button class="menu-tab" onclick="showSection('rice',this)" data-pl="Onigiri &amp; Ryż" data-en="Onigiri &amp; Rice" data-ja="おにぎり・丼物" data-uk="Онігірі та рис" data-be="Анігіры і рыс">Onigiri &amp; Ryż</button>
-  <button class="menu-tab" onclick="showSection('drinks',this)" data-pl="Napoje &amp; Desery" data-en="Drinks &amp; Desserts" data-ja="飲物・デザート" data-uk="Напої та десерти" data-be="Напоі і дэсерты">Napoje &amp; Desery</button>
-  <button class="menu-tab" onclick="showSection('alcohol',this)" data-pl="Alkohol お酒" data-en="Alcohol お酒" data-ja="お酒" data-uk="Алкоголь" data-be="Алкаголь">Alkohol お酒</button>
-  <button class="menu-tab" onclick="showSection('toppings',this)" data-pl="Dodatki トッピング" data-en="Toppings トッピング" data-ja="トッピング" data-uk="Топінги" data-be="Топінгі">Dodatki トッピング</button>
-</div>
+<nav class="nav" id="nav" hidden><div class="nav-inner" id="nav-inner"></div></nav>
 
-<!-- RAMEN -->
-<div class="menu-section active" id="section-ramen">
+<main class="wrap">
+  <div id="state" class="state"><div class="spin"></div><span data-t="loading">Wczytywanie menu…</span></div>
+  <div id="sections"></div>
+</main>
 
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Bulion Drobiowy" data-en="Chicken Stock" data-ja="鶏だし" data-uk="Курячий бульйон" data-be="Курыны булён">Bulion Drobiowy <span class="jp">鶏だし</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">1. Assari <span class="item-jp">あっさり</span></span><span class="item-price">47 PLN</span></div><div class="item-desc" data-pl="Subtelny, delikatny klarowny bulion drobiowy. Baza: sos sojowy, hondashi. Dodatki: kurczak, pół jajka, surimi, imbir, por." data-en="A subtle and refined clear chicken broth. Base: soy sauce, hondashi. Toppings: chicken, half-boiled egg, surimi, ginger, leek.">Subtelny, delikatny klarowny bulion drobiowy. Baza: sos sojowy, hondashi. Dodatki: kurczak, pół jajka, surimi, imbir, por.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">2. Tori Paitan <span class="item-jp">鶏パイタン</span></span><span class="item-price">49 PLN</span></div><div class="item-desc" data-pl="Esencjonalny, intensywny bulion drobiowy. Baza: sos sojowy, paitan. Dodatki: kurczak, shiitake, pak choi, menma, imbir, por." data-en="A rich and intense creamy chicken broth. Base: soy sauce, paitan. Toppings: chicken, shiitake, bok choy, bamboo shoots, ginger, leek.">Esencjonalny, intensywny bulion drobiowy. Baza: sos sojowy, paitan. Dodatki: kurczak, shiitake, pak choi, menma, imbir, por.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">3. Tori Kimchi <span class="item-jp">鶏キムチ</span></span><span class="item-price">49 PLN</span></div><div class="item-desc" data-pl="Pikantny, rozgrzewający i bogaty w smaku. Baza: sos sojowy, paitan, chili. Dodatki: kurczak, kimchi, naruto, wakame, imbir, por." data-en="Spicy, comforting, full of flavor. Base: soy sauce, paitan, chili. Toppings: chicken, kimchi, naruto, wakame, ginger, leek.">Pikantny, rozgrzewający i bogaty w smaku. Baza: sos sojowy, paitan, chili. Dodatki: kurczak, kimchi, naruto, wakame, imbir, por.</div><span class="badge badge-spicy">🌶 Pikantny</span></div>
-    </div>
-  </div>
-
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Bulion Wieprzowy" data-en="Pork Stock" data-ja="豚骨ベース" data-uk="Свинячий бульйон" data-be="Свіны булён">Bulion Wieprzowy <span class="jp">豚骨ベース</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">4. Wabi Navi <span class="item-jp">和美なび</span></span><span class="item-price">47 PLN</span></div><div class="item-desc" data-pl="Nasz sygnaturowy ramen. Delikatny i klarowny bulion wieprzowy. Baza: sos sojowy. Dodatki: karkówka, pół jajka, kiełki, imbir, por." data-en="Our signature ramen. A delicate clear pork broth. Base: soy sauce. Toppings: pork shoulder, half-boiled egg, bean sprouts, ginger, green onion.">Nasz sygnaturowy ramen. Delikatny i klarowny bulion wieprzowy. Baza: sos sojowy. Dodatki: karkówka, pół jajka, kiełki, imbir, por.</div><span class="badge badge-special">★ Bestseller</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">5. Miso <span class="item-jp">味噌</span></span><span class="item-price">49 PLN</span></div><div class="item-desc" data-pl="Łagodny bulion o głębokim aromacie miso. Baza: pasta miso. Dodatki: karkówka, pół jajka, kiełki, kukurydza, masło, imbir, por." data-en="A gentle broth with rich miso fragrance. Base: miso paste. Toppings: pork neck, half-boiled egg, bean sprouts, corn, butter, ginger, leek.">Łagodny bulion o głębokim aromacie miso. Baza: pasta miso. Dodatki: karkówka, pół jajka, kiełki, kukurydza, masło, imbir, por.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">6. Tantanmen <span class="item-jp">担々麺</span></span><span class="item-price">49 PLN</span></div><div class="item-desc" data-pl="Aksamitny, orzechowy, pikantny. Baza: orzechowa pasta chili. Dodatki: mięso mielone, szpinak, imbir, por." data-en="Velvety, nutty, spicy. Base: peanut and chili paste. Toppings: minced pork, spinach, ginger, leek.">Aksamitny, orzechowy, pikantny. Baza: orzechowa pasta chili. Dodatki: mięso mielone, szpinak, imbir, por.</div><span class="badge badge-spicy">🌶 Pikantny</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">7. Tantan Paitan <span class="item-jp">濃厚担々麺</span></span><span class="item-price">52 PLN</span></div><div class="item-desc" data-pl="Aksamitny, esencjonalny bulion o smaku orzechowym. Baza: orzechowa pasta chili, paitan. Dodatki: mięso mielone, pak choi, menma, shiitake, sezam, imbir, por." data-en="Smooth rich nutty spicy broth. Base: peanut chili sauce and paitan. Toppings: ground pork, bok choy, bamboo shoots, shiitake, sesame, ginger, green onion.">Aksamitny, esencjonalny bulion o smaku orzechowym. Baza: orzechowa pasta chili, paitan. Dodatki: mięso mielone, pak choi, menma, shiitake, sezam, imbir, por.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">8. Tantan Miso <span class="item-jp">味噌担々麺</span></span><span class="item-price">52 PLN</span></div><div class="item-desc" data-pl="Głęboki smak umami. Baza: orzechowa pasta chili, miso. Dodatki: mięso mielone, pak choi, kukurydza, grzyby mun, imbir, por." data-en="Rich miso meets bold tantan umami. Base: peanut chili paste and miso. Toppings: ground meat, pak choi, corn, shiitake, ginger, leek.">Głęboki smak umami. Baza: orzechowa pasta chili, miso. Dodatki: mięso mielone, pak choi, kukurydza, grzyby mun, imbir, por.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">9. Tantan Kokosowy <span class="item-jp">担々麺ココナッツ</span></span><span class="item-price">52 PLN</span></div><div class="item-desc" data-pl="Bogate Tantanmen z mleczkiem kokosowym. Baza: orzechowa pasta chili, mleko kokosowe. Dodatki: mięso mielone, pak choi, kukurydza, menma, naruto, imbir, por." data-en="Creamy luxurious tantanmen with coconut milk. Base: peanut chili paste and coconut milk. Toppings: ground pork, bok choy, corn, menma, naruto, ginger, leek.">Bogate Tantanmen z mleczkiem kokosowym. Baza: orzechowa pasta chili, mleko kokosowe.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">10. Tonkotsu <span class="item-jp">豚骨</span></span><span class="item-price">52 PLN</span></div><div class="item-desc" data-pl="Esencjonalny, gęsty bulion wieprzowy gotowany wiele godzin. Baza: paitan, sos sojowy. Dodatki: karkówka, pół jajka, kiełki, pędy bambusa, grzyby mun, naruto, kukurydza, imbir, por." data-en="Rich pork broth simmered for hours. Base: paitan and soy sauce. Toppings: pork neck, half-boiled egg, bean sprouts, bamboo shoots, wood ear mushrooms, naruto, corn, ginger, leek.">Esencjonalny, gęsty bulion wieprzowy gotowany wiele godzin. Baza: paitan, sos sojowy.</div><span class="badge badge-special">★ Bestseller</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">11. Tonkotsu Miso <span class="item-jp">豚骨味噌</span></span><span class="item-price">54 PLN</span></div><div class="item-desc" data-pl="Mocny wywar wieprzowy wzbogacony głębokim smakiem miso. Baza: paitan, miso. Dodatki: karkówka, pół jajka, kiełki, szpinak, pędy bambusa, grzyby mun, naruto, imbir, por." data-en="Robust pork broth enhanced by deep savory miso. Base: paitan and miso. Toppings: pork neck, egg, bean sprouts, spinach, bamboo shoots, mushrooms, naruto, ginger, leek.">Mocny wywar wieprzowy wzbogacony głębokim smakiem miso. Baza: paitan, miso.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">12. Mabo Ramen <span class="item-jp">麻婆ラーメン</span></span><span class="item-price">54 PLN</span></div><div class="item-desc" data-pl="Wyrazisty duet pikanterii i umami. Baza: orzechowa pasta chili, mleko sojowe. Dodatki: mabo tofu, shiitake, imbir, por." data-en="Unique combination of spiciness and umami. Base: peanut chili paste and soy milk. Toppings: minced pork and tofu in spicy sauce, shiitake, ginger, leek.">Wyrazisty duet pikanterii i umami. Baza: orzechowa pasta chili, mleko sojowe.</div><span class="badge badge-spicy">🌶 Pikantny</span></div>
-    </div>
-  </div>
-
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Bulion Warzywny" data-en="Vegetable Stock" data-ja="野菜だし" data-uk="Овочевий бульйон" data-be="Гародніны булён">Bulion Warzywny <span class="jp">野菜だし</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">13. Wege Shōyu <span class="item-jp">ベジ醤油</span></span><span class="item-price">46 PLN</span></div><div class="item-desc" data-pl="Delikatny, klarowny. Baza: sos sojowy. Dodatki: pół jajka, kiełki, szpinak, wakame, kukurydza, imbir, por." data-en="Delicate clear vegetable broth. Base: soy sauce. Toppings: half-boiled egg, bean sprouts, spinach, wakame, corn, ginger, leek.">Delikatny, klarowny. Baza: sos sojowy.</div><span class="badge badge-veg">🌿 Wege</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">14. Wege Miso <span class="item-jp">ベジ味噌</span></span><span class="item-price">48 PLN</span></div><div class="item-desc" data-pl="Łagodny bulion warzywny z aromatem miso. Baza: miso. Dodatki: pół jajka, kiełki, kukurydza, grzyby mun, imbir, por." data-en="Gentle vegetable broth with miso aroma. Base: miso paste. Toppings: egg, bean sprouts, corn, wood ear mushrooms, ginger, leek.">Łagodny bulion warzywny z aromatem miso. Baza: miso.</div><span class="badge badge-veg">🌿 Wege</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">15. Wege Tantanmen <span class="item-jp">ベジ担々麺</span></span><span class="item-price">48 PLN</span></div><div class="item-desc" data-pl="Orzechowy, pikantny. Baza: orzechowa pasta chili. Dodatki: kruszone tofu z warzywami, szpinak, kukurydza, pędy bambusa, imbir, por." data-en="Spicy nutty peanut-based broth. Base: spicy peanut paste. Toppings: tofu crumbles, spinach, corn, bamboo shoots, ginger, leek.">Orzechowy, pikantny. Baza: orzechowa pasta chili.</div><span class="badge badge-veg">🌿 Wege</span><span class="badge badge-spicy">🌶</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">16. Wege Tantan Kokosowy <span class="item-jp">ベジ担々麺ココナッツ</span></span><span class="item-price">52 PLN</span></div><div class="item-desc" data-pl="Luksusowe połączenie orzechowej pasty chili i mleka kokosowego. Baza: orzechowa pasta chili, mleko kokosowe." data-en="Luxurious blend of spicy peanut paste and creamy coconut milk.">Luksusowe połączenie orzechowej pasty chili i mleka kokosowego.</div><span class="badge badge-veg">🌿 Wege</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">17. Wege Białe z Tofu <span class="item-jp">ベジ豆腐</span></span><span class="item-price">53 PLN</span></div><div class="item-desc" data-pl="Łagodne, kremowe połączenie mleka sojowego i bulionu warzywnego. Baza: sos sojowy, mleko sojowe." data-en="Mild creamy soy milk and vegetable stock. Base: soy sauce and soy milk.">Łagodne, kremowe połączenie mleka sojowego i bulionu warzywnego.</div><span class="badge badge-veg">🌿 Wege</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">18. Wege Kimchi <span class="item-jp">ベジキムチ</span></span><span class="item-price">48 PLN</span></div><div class="item-desc" data-pl="Pikantny, rozgrzewający. Baza: sos sojowy, chili. Dodatki: kimchi, pak choi, wakame, imbir, por." data-en="Spicy warming broth. Base: soy sauce and chili. Toppings: kimchi, pak choi, wakame, ginger, leek.">Pikantny, rozgrzewający. Baza: sos sojowy, chili.</div><span class="badge badge-veg">🌿 Wege</span><span class="badge badge-spicy">🌶</span></div>
-    </div>
-  </div>
-
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Oferta Specjalna" data-en="Exclusive Promotion" data-ja="限定メニュー" data-uk="Спеціальна пропозиція" data-be="Спецыяльная прапанова">Oferta Specjalna <span class="jp">限定</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">19. Ramen z Owocami Morza <span class="item-jp">海鮮ラーメン</span></span><span class="item-price">52 PLN</span></div><div class="item-desc" data-pl="Delikatny drobiowo-rybny. Baza: wywar z muli i przegrzebków, hondashi. Dodatki: krewetki, mule, wakame, naruto, nori, imbir, por." data-en="Delicate poultry-fish broth. Base: mussel and scallop stock. Toppings: shrimp, mussels, wakame, naruto, nori, ginger, leek.">Delikatny drobiowo-rybny. Dodatki: krewetki, mule, wakame.</div><span class="badge badge-special">★ Special</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">20. Tantan z Krewetkami <span class="item-jp">エビ担々麺ココナッツ</span></span><span class="item-price">54 PLN</span></div><div class="item-desc" data-pl="Kremowe Tantanmen z mlekiem kokosowym i krewetkami. Baza: orzechowa pasta chili, mleko kokosowe. Dodatki: 3 krewetki, pak choi, grzyby mun, naruto, kukurydza." data-en="Creamy tropical tantanmen. Base: peanut chili paste and coconut milk. Toppings: 3 shrimps, pak choi, mushrooms, naruto, corn.">Kremowe Tantanmen z mlekiem kokosowym i krewetkami.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">21. Curry Tantanmen <span class="item-jp">カレー担々麺</span></span><span class="item-price">53 PLN</span></div><div class="item-desc" data-pl="Pikantny tantan z aromatycznym curry. Baza: orzechowa pasta chili, curry, sos sojowy. Dodatki: mięso mielone, ser, szpinak, kukurydza." data-en="Spicy tantan with aromatic Japanese curry. Base: peanut chili sauce, curry paste, soy sauce.">Pikantny tantan z aromatycznym curry.</div><span class="badge badge-spicy">🌶</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">22. Vege Curry Tantanmen <span class="item-jp">ベジカレー担々麺</span></span><span class="item-price">52 PLN</span></div><div class="item-desc" data-pl="Warzywne curry z tantan. Baza: orzechowa pasta chili, curry, sos sojowy. Dodatki: tofu z warzywami, szpinak, kukurydza." data-en="Vegetable curry tantan broth. Base: peanut chili sauce, curry paste.">Warzywne curry z tantan.</div><span class="badge badge-veg">🌿 Wege</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">23. Vege Tempura Udon/Soba <span class="item-jp">野菜天ぷら</span></span><span class="item-price">54 PLN</span></div><div class="item-desc" data-pl="Wybierz makaron UDON lub SOBA. Baza: sos sojowy. Dodatki: tempura warzywna, szpinak, imbir, por." data-en="Choose UDON or SOBA. Base: soy sauce broth. Toppings: seasonal vegetable tempura, spinach.">Wybierz makaron UDON lub SOBA.</div><span class="badge badge-veg">🌿 Wege</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">24. Udon/Soba z Grzybami <span class="item-jp">きのこ山菜</span></span><span class="item-price">52 PLN</span></div><div class="item-desc" data-pl="Wybierz makaron UDON lub SOBA. Baza: sos sojowy, konbu dashi. Dodatki: nameko, shiitake, pieczarki, naruto, szpinak." data-en="Choose UDON or SOBA. Base: soy sauce and konbu dashi. Toppings: nameko, shiitake, mushrooms, naruto, spinach.">Wybierz makaron UDON lub SOBA.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">25. Inari Udon/Soba <span class="item-jp">いなりうどん/そば</span></span><span class="item-price">50 PLN</span></div><div class="item-desc" data-pl="Tradycyjny japoński bulion kombu. Dodatki: inari, naruto, wakame, imbir, por." data-en="Traditional kombu broth. Toppings: sweet inari tofu pockets, naruto, wakame, ginger, leek.">Tradycyjny japoński bulion kombu.</div></div>
-    </div>
-  </div>
-
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Zimny Makaron" data-en="Cold Noodles" data-ja="冷たい麺" data-uk="Холодна локшина" data-be="Халодная локшына">Zimny Makaron <span class="jp">冷たい麺</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">26. Ramen Salad <span class="item-jp">ラーメンサラダ</span></span><span class="item-price">49 PLN</span></div><div class="item-desc" data-pl="Zimny makaron własnej roboty z sosem sezamowym i świeżymi warzywami. Dodatki: karkówka w kostkę, pomidor, sałata, kukurydza, menma, pół jajka." data-en="Chilled homemade noodles with sesame dressing. Toppings: diced pork neck, tomatoes, lettuce, corn, menma, half-boiled egg.">Zimny makaron własnej roboty z sosem sezamowym.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">27. Ten Zaru Udon/Soba <span class="item-jp">冷やし野菜天ざる</span></span><span class="item-price">50 PLN</span></div><div class="item-desc" data-pl="Zimny makaron z chrupiącą tempurą warzywną i sosem sezamowym. Wybierz UDON lub SOBA." data-en="Chilled noodles with crispy vegetable tempura. Choose UDON or SOBA.">Zimny makaron z chrupiącą tempurą warzywną.</div><span class="badge badge-veg">🌿 Wege</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">28. Zaru Soba / Zaru Udon <span class="item-jp">ざるそば/うどん</span></span><span class="item-price">40 PLN</span></div><div class="item-desc" data-pl="Klasyczny letni faworyt. Chłodny makaron z aromatycznym sosem sezamowym. Wybierz UDON lub SOBA." data-en="Classic summer favorite. Chilled noodles with sesame dipping sauce. Choose UDON or SOBA.">Klasyczny letni faworyt. Chłodny makaron z sosem sezamowym.</div></div>
-    </div>
-  </div>
-
-  <div style="background:var(--sand);padding:1.25rem 1.5rem;max-width:600px;margin:0 auto 2rem;text-align:center;border-left:3px solid var(--red)">
-    <p style="font-size:13px;color:var(--ink);font-weight:500" data-pl="Chcesz więcej? Dobierz dodatkową porcję makaronu!" data-en="Still hungry? Add an extra serving of noodles!">Chcesz więcej? Dobierz dodatkową porcję makaronu!</p>
-    <p style="font-size:12px;color:var(--muted);margin-top:.5rem">Kaedama 替え玉 <strong>9 PLN</strong> &nbsp;·&nbsp; Han-kae 半替え玉 <strong>6 PLN</strong> &nbsp;·&nbsp; Ryż do ramenu <strong>6 PLN</strong></p>
-  </div>
-</div>
-
-<!-- STARTERS -->
-<div class="menu-section" id="section-starter">
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Przystawki" data-en="Starters" data-ja="前菜" data-uk="Закуски" data-be="Закускі">Przystawki <span class="jp">前菜</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">1. Gyōza <span class="item-jp">餃子</span></span><span class="item-price">27–34 PLN</span></div><div class="item-desc" data-pl="Podsmażane pierożki japońskie. a) Warzywne (6szt.) 29 PLN  b) Kurczak (6szt.) 30 PLN  c) Wołowina (6szt.) 34 PLN  d) Dynia i chili, wegańskie (5szt.) 29 PLN  e) Kaczka (5szt.) 32 PLN  f) Krewetki (5szt.) 32 PLN  g) Jabłko (5szt.) 27 PLN" data-en="Japanese-style fried dumplings. a) Vegetable (6pcs) 29 PLN  b) Chicken (6pcs) 30 PLN  c) Beef (6pcs) 34 PLN  d) Pumpkin & Chili vegan (5pcs) 29 PLN  e) Duck (5pcs) 32 PLN  f) Shrimp (5pcs) 32 PLN  g) Apple (5pcs) 27 PLN">Podsmażane pierożki japońskie. a) Warzywne 29 PLN b) Kurczak 30 PLN c) Wołowina 34 PLN d) Dynia/chili 29 PLN e) Kaczka 32 PLN f) Krewetki 32 PLN g) Jabłko 27 PLN</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">2. Oriental Squid Salad <span class="item-jp">いか山菜サラダ</span></span><span class="item-price">34 PLN</span></div><div class="item-desc" data-pl="Delikatne paski kalmara z grzybami mung i bambusem, olej sezamowy, imbir, chili." data-en="Tender squid strips, wood ear mushrooms, bamboo shoots, sesame oil, ginger, chili.">Delikatne paski kalmara z grzybami mung i bambusem.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">3. Edamame <span class="item-jp">枝豆</span></span><span class="item-price">23 PLN</span></div><div class="item-desc" data-pl="Strączki chrupiących nasion soi, lekko solone." data-en="Steamed green soybeans in their pods, lightly salted.">Strączki chrupiących nasion soi.</div><span class="badge badge-veg">🌿 Wegańskie</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">4. Karaage <span class="item-jp">唐揚げ</span></span><span class="item-price">32 PLN</span></div><div class="item-desc" data-pl="Chrupiące kawałki kurczaka (170g) z sosem teriyaki." data-en="Japanese-style fried chicken, crispy and juicy with sweet teriyaki sauce, 170g.">Chrupiące kawałki kurczaka (170g) z sosem teriyaki.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">5. Takoyaki <span class="item-jp">たこ焼き</span></span><span class="item-price">33 PLN</span></div><div class="item-desc" data-pl="Smażone kulki (5szt.) nadziewane ośmiornicą i warzywami z klasycznym sosem." data-en="Savory fried balls with octopus and vegetables, topped with classic sauce, 5 pcs.">Smażone kulki (5szt.) z ośmiornicą i warzywami.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">6. Krewetki w Ziemniakach <span class="item-jp">えびポテト巻き</span></span><span class="item-price">38 PLN</span></div><div class="item-desc" data-pl="Soczyste krewetki (3szt.) owinięte ziemniakami, warzywa sezonowe i sos chili." data-en="Succulent shrimp (3pcs) in crispy potato strings, seasonal vegetables and chili sauce.">Soczyste krewetki (3szt.) owinięte ziemniakami z sosem chili.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">7. Mabo Dofu <span class="item-jp">麻婆豆腐</span></span><span class="item-price">34 PLN</span></div><div class="item-desc" data-pl="Smażone tofu z mieloną wieprzowiną w japońskim stylu." data-en="Japanese-style silken tofu simmered with savory minced pork in a mildly spicy sauce.">Smażone tofu z mieloną wieprzowiną w japońskim stylu.</div><span class="badge badge-spicy">🌶</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">8. Sałatka Hijiki z Edamame <span class="item-jp">ひじき&枝豆</span></span><span class="item-price">25 PLN</span></div><div class="item-desc" data-pl="Tradycyjna japońska sałatka z alg morskich i soi z nutką chili." data-en="Classic Japanese salad with black seaweed and soybeans, rich in minerals with a touch of chili.">Tradycyjna japońska sałatka z alg morskich i soi.</div><span class="badge badge-veg">🌿 Wegańskie</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">9. Sałatka z Tofu <span class="item-jp">豆腐サラダ</span></span><span class="item-price">32 PLN</span></div><div class="item-desc" data-pl="Kostki tofu, sałata, kukurydza, pomidor, pół jajka, dressing sezamowy." data-en="Cubes of tofu, fresh lettuce, corn, tomato, half boiled egg, sesame dressing.">Kostki tofu, sałata, kukurydza, pomidor, dressing sezamowy.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">10. Krewetki Panko <span class="item-jp">エビフライ</span></span><span class="item-price">38 PLN</span></div><div class="item-desc" data-pl="Krewetki (3szt.) w chrupiącej panierce z sosem sezamowym i warzywami." data-en="Crispy breaded shrimps (3pcs) with sesame sauce and seasonal vegetables.">Krewetki (3szt.) w chrupiącej panierce.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">11. Tempura Warzywna <span class="item-jp">野菜天ぷら</span></span><span class="item-price">40 PLN</span></div><div class="item-desc" data-pl="Sezonowe warzywa i grzyby shiitake smażone w głębokim oleju." data-en="Crispy seasonal vegetables and shiitake mushrooms fried to perfection.">Sezonowe warzywa i shiitake w tempurze.</div><span class="badge badge-veg">🌿 Wege</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">12. Tempura z Krewetkami <span class="item-jp">えび天かき揚げ</span></span><span class="item-price">45 PLN</span></div><div class="item-desc" data-pl="Krewetki smażone razem z warzywami w tempurze." data-en="Succulent shrimp sautéed and fried together with a medley of vegetables.">Krewetki smażone z warzywami w tempurze.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">13. Kimchi <span class="item-jp">キムチ</span></span><span class="item-price">23 PLN</span></div><div class="item-desc" data-pl="Pikantna, fermentowana kapusta pekińska." data-en="Spicy fermented Napa cabbage with traditional Korean seasonings.">Pikantna, fermentowana kapusta pekińska.</div><span class="badge badge-veg">🌿 Wegańskie</span><span class="badge badge-spicy">🌶</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">14. Goma Wakame <span class="item-jp">ゴマわかめ</span></span><span class="item-price">23 PLN</span></div><div class="item-desc" data-pl="Delikatna sałatka z wodorostów wakame z sezamem." data-en="Light wakame seaweed salad with savory sesame finish.">Delikatna sałatka z wodorostów wakame z sezamem.</div><span class="badge badge-veg">🌿 Wegańskie</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">15. Natto <span class="item-jp">納豆</span></span><span class="item-price">21 PLN</span></div><div class="item-desc" data-pl="Tradycyjne japońskie sfermentowane nasiona soi." data-en="Traditional Japanese fermented soybeans, a unique and healthy delicacy.">Tradycyjne japońskie sfermentowane nasiona soi.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- RICE -->
-<div class="menu-section" id="section-rice">
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Onigiri" data-en="Onigiri" data-ja="おにぎり" data-uk="Онігірі" data-be="Анігіры">Onigiri <span class="jp">おにぎり</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">Onigiri <span class="item-jp">おにぎり</span></span><span class="item-price">14 / 26 PLN</span></div><div class="item-desc" data-pl="Japońska przekąska ryżowa. Z nadzieniem: a) wodorosty b) kimchi c) mięso mielone d) surimi-mayo e) tuńczyk-mayo f) krewetki-mayo. Z posypką: g) warzywa h) shiso i) katsuo j) czosnek/chili k) jajko/nori." data-en="Authentic Japanese rice balls. Inside: a) seaweed b) kimchi c) minced pork d) surimi mayo e) tuna mayo f) shrimp mayo. Outside: g) mixed vegetables h) red perilla i) bonito flakes j) crispy garlic & chili k) egg & nori.">1 szt. 14 PLN / 2 szt. 26 PLN. Nadzienia: wodorosty, kimchi, mięso mielone, surimi-mayo, tuńczyk, krewetki. Posypki: warzywa, shiso, katsuo, czosnek/chili, jajko/nori.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Wabi Inari Sushi <span class="item-jp">いなり寿司</span></span><span class="item-price">28 PLN</span></div><div class="item-desc" data-pl="Soczyste, słodkie sakiewki z tofu z ryżem sushi. 2 szt." data-en="Sweet and succulent fried tofu pockets filled with vinegared sushi rice. 2 pcs.">Soczyste, słodkie sakiewki z tofu z ryżem sushi (2 szt.).</div><span class="badge badge-veg">🌿 Wegańskie</span></div>
-    </div>
-  </div>
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Dania z Ryżem" data-en="Rice Bowls" data-ja="丼物" data-uk="Страви з рисом" data-be="Стравы з рысам">Dania z Ryżem <span class="jp">丼物</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">3. Tamago Don <span class="item-jp">たまご丼</span></span><span class="item-price">38 PLN</span></div><div class="item-desc" data-pl="Puszyste jajko z słodką cebulą, szczypiorkiem i sezamem na ryżu." data-en="Fluffy eggs simmered with sweet onions, topped with chives and sesame over steamed rice.">Puszyste jajko ze słodką cebulą na ryżu.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">4. Oyako Don <span class="item-jp">親子丼</span></span><span class="item-price">42 PLN</span></div><div class="item-desc" data-pl="Soczysty kurczak w sosie sojowym z puszystym jajkiem i cebulą na ryżu." data-en="Tender chicken in soy sauce, simmered with fluffy egg and onions over rice.">Soczysty kurczak z jajkiem i cebulą na ryżu.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">5. Soboro Don <span class="item-jp">そぼろ丼</span></span><span class="item-price">43 PLN</span></div><div class="item-desc" data-pl="Aromatyczne mięso mielone z duszoną cebulą i puszystym jajkiem na ryżu." data-en="Savory minced pork with stewed onions and soft-cooked egg over rice.">Mięso mielone z cebulą i jajkiem na ryżu.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">6. Chashu Don <span class="item-jp">チャーシュー丼</span></span><span class="item-price">46 PLN</span></div><div class="item-desc" data-pl="Soczyste kostki karkówki z duszoną cebulą i puszystym jajkiem na ryżu." data-en="Tender roasted pork neck cubes and sautéed onions with a light egg over rice.">Soczyste kostki karkówki z cebulą na ryżu.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">7. Potato Ebi Don <span class="item-jp">ポテト巻きえび丼</span></span><span class="item-price">49 PLN</span></div><div class="item-desc" data-pl="Chrupiące krewetki owinięte ziemniakami z puszystym jajkiem na ryżu." data-en="Golden crispy potato-wrapped prawns with a light egg over rice.">Chrupiące krewetki w ziemniakach z jajkiem na ryżu.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">8. Una Don <span class="item-jp">うな丼</span></span><span class="item-price">50 PLN</span></div><div class="item-desc" data-pl="Rozpływający się w ustach grillowany węgorz w słodkim sosie kabayaki." data-en="Grilled eel that melts in your mouth, coated in sweet kabayaki sauce.">Grillowany węgorz w słodkim sosie kabayaki.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">9. Yasai Kakiage Don <span class="item-jp">野菜かき揚げ丼</span></span><span class="item-price">48 PLN</span></div><div class="item-desc" data-pl="Chrupiące placuszki z siekanych warzyw w tempurze na ryżu z gęstym sosem." data-en="Crispy vegetable fritters in tempura over rice with rich sweet sauce.">Chrupiące placuszki warzywne w tempurze na ryżu.</div><span class="badge badge-veg">🌿 Wege</span></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">10. Ryż Parowany <span class="item-jp">ライス</span></span><span class="item-price">12 PLN</span></div><div class="item-desc" data-pl="Mała miseczka parowanego ryżu." data-en="A small portion of fluffy steamed rice.">Mała miseczka parowanego ryżu.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">11. Zestaw Domowy <span class="item-jp">ご飯と味噌汁</span></span><span class="item-price">18 PLN</span></div><div class="item-desc" data-pl="Ryż parowany i gorący bulion miso z wakame." data-en="Steamed rice with hot miso broth with wakame seaweed and sesame.">Ryż parowany i gorący bulion miso z wakame.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- DRINKS -->
-<div class="menu-section" id="section-drinks">
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Herbaty" data-en="Teas" data-ja="お茶" data-uk="Чай" data-be="Гарбата">Herbaty <span class="jp">お茶</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">Sencha <span class="item-jp">煎茶</span></span><span class="item-price">24 PLN</span></div><div class="item-desc" data-pl="Klasyczna japońska herbata o świeżym, roślinnym aromacie." data-en="Traditional Japanese tea with fresh herbal scent and mild bitterness.">Klasyczna japońska herbata o świeżym, roślinnym aromacie.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Genmaicha <span class="item-jp">玄米茶</span></span><span class="item-price">24 PLN</span></div><div class="item-desc" data-pl="Zielona herbata z prażonym ryżem i matchą." data-en="Polished green tea blended with roasted rice and matcha.">Zielona herbata z prażonym ryżem i matchą.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Hojicha <span class="item-jp">ほうじ茶</span></span><span class="item-price">24 PLN</span></div><div class="item-desc" data-pl="Prażona japońska herbata, naturalnie niska zawartość kofeiny." data-en="Roasted Japanese tea, naturally low in caffeine, calming flavor.">Prażona japońska herbata, niska zawartość kofeiny.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Sencha Sakura <span class="item-jp">桜煎茶</span></span><span class="item-price">24 PLN</span></div><div class="item-desc" data-pl="Herbata z aromatem japońskiej wiśni, rumem i płatkami róży." data-en="Fragrant tea with Japanese cherry blossom aroma, rum and rose petals.">Herbata z aromatem wiśni, rumem i płatkami róży.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Sencha Cytrynowa <span class="item-jp">レモン煎茶</span></span><span class="item-price">24 PLN</span></div><div class="item-desc" data-pl="Zielona herbata z cytryną i trawą cytrynową." data-en="Lemon green tea with lemongrass.">Zielona herbata z cytryną i trawą cytrynową.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Sencha Jaśminowa <span class="item-jp">ジャスミン茶</span></span><span class="item-price">24 PLN</span></div><div class="item-desc" data-pl="Zielona herbata z kwiatem jaśminu." data-en="Jasmine flower green tea, subtle sweet floral taste.">Zielona herbata z kwiatem jaśminu.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Herbata Oolong <span class="item-jp">ウーロン茶</span></span><span class="item-price">24 PLN</span></div><div class="item-desc" data-pl="Chińska Oolong o głębokim aromacie i niezwykłej słodyczy." data-en="Chinese Oolong tea with rich aroma and remarkable sweetness.">Chińska Oolong o głębokim aromacie.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Herbata Specjalna <span class="item-jp">お任せティー</span></span><span class="item-price">25 PLN</span></div><div class="item-desc" data-pl="O smaki zapytaj obsługę! Darmowa dolewka dla herbat na gorąco." data-en="Ask us about today's flavors! Complimentary refills for hot tea.">O smaki zapytaj obsługę! Darmowa dolewka.</div></div>
-    </div>
-  </div>
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Kawy" data-en="Coffee" data-ja="コーヒー" data-uk="Кава" data-be="Кава">Kawy <span class="jp">コーヒー</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">Espresso <span class="item-jp">エスプレッソ</span></span><span class="item-price">12 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Flat White <span class="item-jp">フラットホワイト</span></span><span class="item-price">14 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Americano <span class="item-jp">アメリカーノ</span></span><span class="item-price">14 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Cappuccino <span class="item-jp">カプチーノ</span></span><span class="item-price">16 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Latte Macchiato <span class="item-jp">ラテマキアット</span></span><span class="item-price">16 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Mocha <span class="item-jp">モカ</span></span><span class="item-price">16 PLN</span></div></div>
-    </div>
-  </div>
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Napoje" data-en="Beverages" data-ja="飲料" data-uk="Напої" data-be="Напоі">Napoje <span class="jp">お飲み物</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">Matcha Latte <span class="item-jp">抹茶ラテ</span></span><span class="item-price">20 PLN</span></div><div class="item-desc" data-pl="Bogaty smak matchy z kremowym mlekiem. Na ciepło lub zimno." data-en="Rich & Creamy. Available HOT or ICED.">Na ciepło lub zimno.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Choya Yuzu Soda <span class="item-jp">ゆずッシュ</span></span><span class="item-price">19 PLN</span></div><div class="item-desc" data-pl="Orzeźwiający gazowany napój yuzu." data-en="Yuzu sparkling soda.">350ml · Gazowany napój yuzu.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Umesshu <span class="item-jp">ウメッシュ</span></span><span class="item-price">19 PLN</span></div><div class="item-desc" data-pl="Japoński gazowany napój o smaku śliwki." data-en="Japanese plum sparkling soda.">350ml · Gazowany napój śliwkowy.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Ryokucha <span class="item-jp">緑茶缶</span></span><span class="item-price">17 PLN</span></div><div class="item-desc" data-pl="Zimna, orzeźwiająca zielona herbata w puszce, bez cukru." data-en="Unsweetened Japanese green tea can.">340ml · Bez cukru.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">OKF Sparkling Fruit Soda</span><span class="item-price">16 PLN</span></div><div class="item-desc" data-pl="Gazowane napoje owocowe: ananas, brzoskwinia, limonka." data-en="Sparkling fruit sodas: pineapple, peach, lime.">350ml · Ananas, brzoskwinia, limonka.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Aloe Vera King</span><span class="item-price">19 PLN</span></div><div class="item-desc" data-pl="Napój aloesowy: granat lub kiwi." data-en="Aloe vera drinks: pomegranate or kiwi.">500ml · Granat lub kiwi.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Pepsi / Mirinda / Pepsi Max</span><span class="item-price">9 PLN</span></div><div class="item-desc">200ml</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Sok Jabłkowy / Pomarańczowy</span><span class="item-price">9 PLN</span></div><div class="item-desc">200ml</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Woda Niegazowana / Gazowana</span><span class="item-price">9 PLN</span></div><div class="item-desc">300ml</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Herbata Na Zimno <span class="item-jp">冷たいレモネード</span></span><span class="item-price">14 PLN</span></div><div class="item-desc" data-pl="Egzotyczne Mango-Tango z cytrynowym orzeźwieniem z lodem." data-en="Exotic Mango-Tango lemonade chilled with ice.">Mango-Tango z lodem.</div></div>
-    </div>
-  </div>
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Desery" data-en="Desserts" data-ja="デザート" data-uk="Десерти" data-be="Дэсерты">Desery <span class="jp">デザート</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">Gyoza Jabłkowe z Lodami <span class="item-jp">リンゴ餃子</span></span><span class="item-price">25 PLN</span></div><div class="item-desc" data-pl="Chrupiące pierożki z jabłkiem (3szt.) z 1 gałką lodów: matcha, czarny sezam lub wanilia." data-en="Apple dumplings (3pcs) with a scoop of ice cream: matcha, black sesame, or vanilla.">Pierożki z jabłkiem (3szt.) + 1 gałka lodów do wyboru.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Lody Matcha <span class="item-jp">抹茶アイス</span></span><span class="item-price">19 PLN</span></div><div class="item-desc" data-pl="Lody z japońskiej zielonej herbaty matcha." data-en="Japanese matcha green tea gelato.">Lody z japońskiej herbaty matcha.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Lody Sezamowe <span class="item-jp">黒ゴマアイス</span></span><span class="item-price">19 PLN</span></div><div class="item-desc" data-pl="Lody o smaku czarnego sezamu." data-en="Black sesame gelato.">Lody o smaku czarnego sezamu.</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Waniliowe z Umeshu <span class="item-jp">バニラ黒糖梅酒がけ</span></span><span class="item-price">21 PLN</span></div><div class="item-desc" data-pl="Lody waniliowe z likierem śliwki Ume." data-en="Vanilla ice cream with fragrant Ume plum liqueur.">Lody waniliowe z likierem śliwki Ume.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ALCOHOL -->
-<div class="menu-section" id="section-alcohol">
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Japońskie Aperitify" data-en="Japanese Aperitifs" data-ja="食前酒" data-uk="Японські аперитиви" data-be="Японскія апертывы">Japońskie Aperitify <span class="jp">食前酒</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">Choya Ume Salute <span class="item-jp">スパークリング梅酒</span></span><span class="item-price">24 PLN</span></div><div class="item-desc" data-pl="Premium musujące wino śliwkowe. 200ml, Alk. 5,5%." data-en="Premium sparkling plum wine. 200ml, Alc. 5.5%.">200ml · Alk. 5,5%</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Choya Sarari Yuzu <span class="item-jp">柚子酒</span></span><span class="item-price">24 PLN / 100 PLN</span></div><div class="item-desc" data-pl="Japoński likier yuzu na lodzie. Kieliszek 100ml lub butelka 500ml. Alk. 7,2%." data-en="Light natural yuzu liqueur on the rocks. Glass 100ml or bottle 500ml. Alc. 7.2%.">Kieliszek 100ml · Butelka 500ml · Alk. 7,2%</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Choya Silver Red <span class="item-jp">シルバーレッド</span></span><span class="item-price">21 PLN / 69 PLN</span></div><div class="item-desc" data-pl="Słodkie, czerwone wino śliwkowe. Kieliszek 125ml lub butelka 500ml. Alk. 10%." data-en="Sweet fruity red plum wine. Glass 125ml or bottle 500ml. Alc. 10%.">Kieliszek 125ml · Butelka 500ml · Alk. 10%</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Japanese Sake Choya <span class="item-jp">日本酒</span></span><span class="item-price">26 PLN</span></div><div class="item-desc" data-pl="Podawane w tradycyjnej krafce Tokkuri. Na ciepło lub zimno. 180ml, Alk. 14,5%." data-en="Served in classic Tokkuri. Warm or chilled. 180ml, Alc. 14.5%.">180ml · Na ciepło lub zimno · Alk. 14,5%</div></div>
-    </div>
-  </div>
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Piwa Specjalne" data-en="Unique Beers" data-ja="クラフトビール" data-uk="Крафтове пиво" data-be="Крафтавае піва">Piwa Specjalne <span class="jp">クラフトビール</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">IKI Yuzu <span class="item-jp">柚子</span></span><span class="item-price">22 PLN</span></div><div class="item-desc" data-pl="Orzeźwiające piwo z zieloną herbatą i yuzu. 330ml, Alk. 4,5%." data-en="Revitalizing green tea beer with zesty yuzu. 330ml, Alc. 4.5%.">330ml · Zielona herbata i yuzu · Alk. 4,5%</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">IKI Ginger <span class="item-jp">生姜</span></span><span class="item-price">22 PLN</span></div><div class="item-desc" data-pl="Wyraziste piwo z zieloną herbatą i imbirem. 330ml, Alk. 5,5%." data-en="Expressive green tea beer with warm ginger. 330ml, Alc. 5.5%.">330ml · Zielona herbata i imbir · Alk. 5,5%</div></div>
-    </div>
-  </div>
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Japońskie Piwo" data-en="Japanese Beer" data-ja="日本ビール" data-uk="Японське пиво" data-be="Японскае піва">Japońskie Piwo <span class="jp">生ビール</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">Kirin Ichiban Shibori <span class="item-jp">キリン一番搾り</span></span><span class="item-price">22 / 25 PLN</span></div><div class="item-desc" data-pl="Świeże japońskie piwo z beczki. 300ml lub 500ml." data-en="Fresh draft premium lager. 300ml or 500ml.">Z beczki · 300ml / 500ml</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Asahi Super Dry <span class="item-jp">アサヒスーパードライ</span></span><span class="item-price">22 PLN</span></div><div class="item-desc" data-pl="Kultowe japońskie piwo, wyjątkowo czyste i orzeźwiające. 330ml, Alk. 5%." data-en="The iconic Karakuchi: crisp, clean and refreshing. 330ml, Alc. 5%.">330ml · Alk. 5%</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Sapporo Premium Lager <span class="item-jp">サッポロ</span></span><span class="item-price">22 PLN</span></div><div class="item-desc" data-pl="Eleganckie piwo premium o idealnie zbalansowanym smaku. 330ml, Alk. 4,8%." data-en="Sophisticated balance of flavor and heritage. 330ml, Alc. 4.8%.">330ml · Alk. 4,8%</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Kirin Bezalkoholowe <span class="item-jp">ノンアルコール</span></span><span class="item-price">19 PLN</span></div><div class="item-desc" data-pl="Kirin Ichiban Shibori bezalkoholowe. 330ml, Alk. 0,0%." data-en="Kirin Ichiban non-alcoholic. 330ml, Alc. 0.0%.">330ml · Alk. 0,0%</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Tyskie / Lech Pils</span><span class="item-price">15 PLN</span></div><div class="item-desc" data-pl="Polskie piwo. 500ml." data-en="Polish beer. 500ml.">500ml</div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Lech Free <span class="item-jp">ノンアルコール</span></span><span class="item-price">14 PLN</span></div><div class="item-desc" data-pl="Polskie piwo bezalkoholowe. 330ml." data-en="Polish non-alcoholic lager. 330ml.">330ml · Alk. 0,0%</div></div>
-    </div>
-  </div>
-  <div style="text-align:center;padding:1rem;font-size:12px;color:var(--muted)">Tylko dla osób pełnoletnich / Must be 18+ to order alcohol</div>
-</div>
-
-<!-- TOPPINGS -->
-<div class="menu-section" id="section-toppings">
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Makaron & Wymiana" data-en="Noodles & Swap" data-ja="麺・交換" data-uk="Локшина та заміна" data-be="Локшына і замена">Makaron &amp; Wymiana <span class="jp">替え玉</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">Kaedama – Extra makaron <span class="item-jp">替え玉</span></span><span class="item-price">9 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Han-kae – Pół porcji <span class="item-jp">半替え玉</span></span><span class="item-price">6 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Wymiana makaronu (ryż/udon/soba) <span class="item-jp">替え麺</span></span><span class="item-price">4 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Ryż do ramenu <span class="item-jp">ライス</span></span><span class="item-price">6 PLN</span></div><div class="item-desc" data-pl="Specjalna cena tylko dla zamówień z ramenem!" data-en="Special price with any ramen order!">Specjalna cena z ramenem!</div></div>
-    </div>
-  </div>
-  <div class="menu-category">
-    <h2 class="category-title" data-pl="Dodatki do wyboru" data-en="Available add-ons" data-ja="トッピング" data-uk="Топінги" data-be="Дадаткі">Dodatki do wyboru <span class="jp">トッピング</span></h2>
-    <div class="menu-items">
-      <div class="menu-item"><div class="item-header"><span class="item-name">Por / Sezam / Nori / Kukurydza / Imbir</span><span class="item-price">1 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Pak choi / Szpinak / Wakame / Czosnek / Grzyby Mun / Ser</span><span class="item-price">2 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Naruto / Pół jajka / Shiitake / Kiełki / Surimi / Menma / Goma Wakame / Pasta chili</span><span class="item-price">3 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Kimchi / Hijiki z Edamame</span><span class="item-price">4 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Mięso Mielone / Karkówka (chashu) / Kurczak</span><span class="item-price">5 PLN</span></div></div>
-      <div class="menu-item"><div class="item-header"><span class="item-name">Krewetki (3szt.) / Kruszone Tofu / Inari Tofu (2szt.) / Extra Owoce Morza</span><span class="item-price">6 PLN</span></div></div>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-logo">
-    <img src="images/logo-main.png" alt="Wabi Navi">
-  </div>
-  <div class="footer-right">
-    <div style="color:#7a6e5e;font-size:11px;margin-bottom:.25rem">ul. Małe Garbary 5A · 87-100 Toruń · (+48) 693 865 271</div>
-    <div style="color:#4a4238;font-size:10px">© 2025 Wabi Navi · wabinavi@gmail.com</div>
-  </div>
-</footer>
+<p class="foot-note" data-t="note">
+  Alergeny i pełny skład podajemy w aplikacji przy stoliku oraz na życzenie u obsługi.
+</p>
 
 <script>
+/* ══════════════════════════════════════════════════════════════
+   Wabi Navi — menu na żywo / メニュー自動連動
+   データ元：注文アプリと同じGAS（メニューシートが正本）
+   写真　　：注文アプリの images/ をそのまま参照（同一オリジン）
+   ══════════════════════════════════════════════════════════════ */
 
-let currentLang='pl';
-function setLang(lang,btn){
-  currentLang=lang;
-  document.querySelectorAll('.lang-bar button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('[data-'+lang+']').forEach(el=>{
-    el.textContent=el.getAttribute('data-'+lang);
+const APP = 'https://riichi-ramen.github.io/wabinavi-order/';
+const GAS = 'https://script.google.com/macros/s/AKfycbztP0245VXY7DRrjOQC9m4tu-DWKcGzPwT0QzBNgxfLxgczmYmQYlP8ErEz4umoJ3FN/exec';
+
+const CACHE_KEY = 'wabi_menu_v1';
+const CACHE_MS  = 5 * 60 * 1000;
+
+const T = {
+  pl:{ title:'Menu', lead:'Ceny i dostępność pobierane są na żywo z naszej kuchni.',
+       loading:'Wczytywanie menu…',
+       fail:'Nie udało się wczytać menu. Sprawdź połączenie i spróbuj ponownie.',
+       retry:'Spróbuj ponownie', sold:'Wyprzedane', soon:'Wkrótce', vege:'wege',
+       promo:'Polecane', ramenSub:'Nasza specjalność', till:'do',
+       items:'poz.', updated:'Zaktualizowano',
+       note:'Alergeny i pełny skład podajemy w aplikacji przy stoliku oraz na życzenie u obsługi.' },
+  en:{ title:'Menu', lead:'Prices and availability come straight from our kitchen.',
+       loading:'Loading menu…',
+       fail:'Could not load the menu. Check your connection and try again.',
+       retry:'Try again', sold:'Sold out', soon:'Coming soon', vege:'vegan',
+       promo:'Picks', ramenSub:'Our specialty', till:'until',
+       items:'items', updated:'Updated',
+       note:'Allergens and full ingredients are shown in the table app and available from our staff.' }
+};
+
+let LANG = (navigator.language || '').toLowerCase().startsWith('pl') ? 'pl' : 'pl';
+let DATA = null;
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ── 取得（メニュー＋非表示リスト） ───────────────────────── */
+async function fetchMenu(force) {
+  if (!force) {
+    try {
+      const c = JSON.parse(sessionStorage.getItem(CACHE_KEY) || 'null');
+      if (c && Date.now() - c.at < CACHE_MS) return c.payload;
+    } catch (e) {}
+  }
+
+  // 非表示リストは取れなくても致命的ではないので、失敗しても続行する
+  const [menuRes, hiddenRes] = await Promise.all([
+    fetch(GAS + '?action=getMenu').then(r => r.json()),
+    fetch(GAS + '?action=getHiddenItems').then(r => r.json()).catch(() => null)
+  ]);
+
+  if (!menuRes || menuRes.status !== 'ok' || !Array.isArray(menuRes.menu)) {
+    throw new Error('menu unavailable');
+  }
+
+  const payload = {
+    menu:   menuRes.menu,
+    hidden: (hiddenRes && hiddenRes.status === 'ok' && hiddenRes.hidden) || []
+  };
+  try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), payload })); } catch (e) {}
+  return payload;
+}
+
+/* ── 1品ぶんのカード ──────────────────────────────────────── */
+function card(it, feature) {
+  const t   = T[LANG];
+  const key = it.imgKey || it.id;              // ⭐おすすめは id が p_xxx なので imgKey を使う
+  const src = APP + 'images/' + key + '.jpg';
+
+  const name = LANG === 'pl' ? it.namePL : (it.nameEN || it.namePL);
+  const sub  = LANG === 'pl' ? (it.nameEN || '') : (it.namePL || '');
+  const desc = LANG === 'pl' ? (it.descPL || '') : (it.descEN || it.descPL || '');
+  const jp   = it.nameJP || '';
+
+  const off  = it.soldOut || it.comingSoon;
+  const veil = it.soldOut ? t.sold : (it.comingSoon ? t.soon : '');
+
+  const isVege = /wege|vegan|wegań/i.test(
+    (it.namePL || '') + ' ' + (it.nameEN || '') + ' ' + (it.descPL || ''));
+
+  const tags = [];
+  if (isVege)       tags.push(`<span class="tag vege">${esc(t.vege)}</span>`);
+  if (it.spice > 0) tags.push(`<span class="tag hot">${'🌶️'.repeat(Math.min(it.spice, 3))}</span>`);
+
+  // おすすめバッジはシートにPL/JPしか無いため、PLを優先して表示する
+  const promo = it.promoPL || it.promoJP || '';
+
+  return `
+  <article class="card${off ? ' off' : ''}">
+    <div class="shot" data-key="${esc(key)}">
+      <img src="${esc(src)}" alt="${esc(name)}" loading="lazy" decoding="async"
+           onerror="this.parentElement.classList.add('noshot');this.remove()">
+      ${jp ? `<div class="tanzaku" aria-hidden="true">${esc(jp)}</div>` : ''}
+      ${it.origPrice ? `<div class="ribbon">${esc(t.promo)}</div>` : ''}
+      ${veil ? `<div class="veil"><span>${esc(veil)}</span></div>` : ''}
+    </div>
+    <div class="body">
+      <div class="name">${esc(name)}</div>
+      ${sub ? `<div class="name-sub">${esc(sub)}</div>` : ''}
+      ${desc ? `<p class="desc">${esc(desc)}</p>` : ''}
+      ${promo ? `<div class="promo-note">${esc(promo)}${
+        it.promoUntil ? ` <span class="promo-till">· ${esc(t.till)} ${esc(it.promoUntil)}</span>` : ''
+      }</div>` : ''}
+      <div class="foot">
+        <span class="price">${Number(it.price)} zł</span>
+        ${it.origPrice ? `<span class="was">${Number(it.origPrice)} zł</span>` : ''}
+        <span class="tags">${tags.join('')}</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* ── セクション ───────────────────────────────────────────── */
+function section(cat, opts) {
+  const t = T[LANG];
+  const o = opts || {};
+  const title = o.title || (LANG === 'pl' ? cat.namePL : (cat.nameEN || cat.namePL));
+  const sub   = o.sub   || (LANG === 'pl' ? (cat.nameEN || '') : (cat.namePL || ''));
+  return `
+  <section class="sec" id="cat-${esc(cat.id)}">
+    <div class="sec-head">
+      <h2>${esc(title)}</h2>
+      <span class="sub">${esc(sub)}</span>
+      <span class="cnt">${cat.items.length} ${esc(t.items)}</span>
+    </div>
+    <div class="grid${o.feature ? ' feature' : ''}">
+      ${cat.items.map(it => card(it, o.feature)).join('')}
+    </div>
+  </section>`;
+}
+
+/* ── 全体描画 ─────────────────────────────────────────────── */
+function render() {
+  const t = T[LANG];
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const k = el.dataset.t; if (t[k]) el.textContent = t[k];
   });
-}
-window.addEventListener('DOMContentLoaded',function(){
-  const plBtn=document.querySelector('.lang-bar button.active');
-  if(plBtn) setLang('pl',plBtn);
-});
+  document.querySelectorAll('.lang button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.lang === LANG)));
 
-function showSection(id, btn) {
-  document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('section-' + id).classList.add('active');
-  btn.classList.add('active');
+  if (!DATA) return;
+
+  const hidden = new Set(DATA.hidden);
+  // 非表示指定を反映（⭐おすすめの複製は元IDで判定する）
+  const cats = DATA.menu
+    .map(c => ({ ...c, items: (c.items || []).filter(it => !hidden.has(it.imgKey || it.id)) }))
+    .filter(c => c.items.length);
+
+  const promo = cats.find(c => c.id === 'osusume');
+  const ramen = cats.find(c => c.id === 'ramen');
+  const rest  = cats.filter(c => c.id !== 'osusume' && c.id !== 'ramen');
+
+  let html = '';
+  const navItems = [];
+
+  if (promo) {
+    html += section(promo, { title: '⭐ ' + t.promo, sub: LANG === 'pl' ? 'Oferta specjalna' : 'Special offer', feature: true });
+    navItems.push(['osusume', '⭐ ' + t.promo]);
+  }
+  if (ramen) {
+    html += section(ramen, { title: 'Ramen', sub: t.ramenSub, feature: true });
+    navItems.push(['ramen', 'Ramen']);
+  }
+  rest.forEach(c => {
+    html += section(c);
+    navItems.push([c.id, LANG === 'pl' ? c.namePL : (c.nameEN || c.namePL)]);
+  });
+
+  document.getElementById('sections').innerHTML = html;
+  document.getElementById('nav-inner').innerHTML =
+    navItems.map(([id, label]) => `<a href="#cat-${esc(id)}">${esc(label)}</a>`).join('');
+  document.getElementById('nav').hidden = false;
+  document.getElementById('state').style.display = 'none';
+
+  const n = cats.reduce((a, c) => a + (c.id === 'osusume' ? 0 : c.items.length), 0);
+  document.getElementById('updated').textContent =
+    `${t.updated}: ${new Date().toLocaleDateString(LANG === 'pl' ? 'pl-PL' : 'en-GB')} · ${n} ${t.items}`;
 }
+
+/* ── 起動 ─────────────────────────────────────────────────── */
+async function start(force) {
+  const state = document.getElementById('state');
+  state.style.display = '';
+  state.innerHTML = `<div class="spin"></div><span>${esc(T[LANG].loading)}</span>`;
+  try {
+    DATA = await fetchMenu(force);
+    render();
+  } catch (e) {
+    state.innerHTML =
+      `<p>${esc(T[LANG].fail)}</p><button class="retry" type="button">${esc(T[LANG].retry)}</button>`;
+    state.querySelector('.retry').addEventListener('click', () => start(true));
+  }
+}
+
+document.querySelectorAll('.lang button').forEach(b =>
+  b.addEventListener('click', () => { LANG = b.dataset.lang; render(); }));
+
+start(false);
 </script>
 </body>
 </html>
