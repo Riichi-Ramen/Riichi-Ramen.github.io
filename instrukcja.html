@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wabi Navi — Instrukcja obsługi / 操作マニュアル</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#2c1810;--accent:#c0392b;--gold:#c8a96e;--muted:#6a5a4a;
+  --line:#e0d3c2;--bg:#fbf6ee;--soft:#fdf3ea}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:var(--ink);background:var(--bg);
+  line-height:1.6;padding:1.5rem}
+.sheet{max-width:900px;margin:0 auto;background:#fff;border:1px solid var(--line);
+  border-radius:8px;overflow:hidden}
+header{background:var(--ink);color:var(--gold);padding:1.4rem 1.6rem;text-align:center}
+header h1{font-size:1.35rem;letter-spacing:.02em}
+header .sub{font-size:.82rem;opacity:.85;margin-top:.3rem;color:#e8dcc4}
+header .ver{font-size:.7rem;opacity:.6;margin-top:.4rem}
+.intro{padding:1rem 1.6rem;background:var(--soft);border-bottom:1px solid var(--line);
+  font-size:.86rem;color:var(--muted)}
+.intro b{color:var(--ink)}
+.jp-note{margin-top:.5rem;padding-top:.5rem;border-top:1px dashed var(--line);font-size:.8rem;color:#9a8a78}
+section{padding:1.3rem 1.6rem;border-bottom:1px solid var(--line)}
+section:last-child{border-bottom:none}
+h2{font-size:1.05rem;color:var(--accent);margin-bottom:.2rem;
+  display:flex;align-items:center;gap:.5rem}
+h2 .pl{font-size:.72rem;color:var(--muted);font-weight:400;font-style:italic}
+.path{display:inline-block;font-size:.78rem;background:var(--soft);border:1px solid var(--line);
+  border-radius:5px;padding:.15rem .5rem;margin:.4rem 0;color:var(--ink)}
+ol,ul{margin:.5rem 0 .3rem 1.3rem}
+li{margin-bottom:.35rem;font-size:.9rem}
+li .pl{display:block;font-size:.76rem;color:#9a8a78;margin-top:.1rem}
+.note{background:var(--soft);border-left:3px solid var(--gold);padding:.6rem .9rem;
+  margin-top:.7rem;font-size:.82rem;border-radius:0 5px 5px 0}
+.warn{border-left-color:var(--accent)}
+.warn b{color:var(--accent)}
+table{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:.84rem}
+th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
+th{background:var(--soft);font-weight:700}
+code{background:var(--soft);padding:.05rem .35rem;border-radius:4px;font-size:.85em}
+td .jp,th .jp{color:#9a8a78;font-size:.92em}   /* 表内の日本語補助 */
+.foot{padding:1rem 1.6rem;font-size:.76rem;color:var(--muted);text-align:center}
+kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;
+  padding:.05rem .4rem;font-size:.82em;font-family:inherit}
+@media print{
+  body{background:#fff;padding:0}
+  .sheet{border:none;max-width:none}
+  section{break-inside:avoid;border-bottom:1px solid #ccc}
+  header{background:#2c1810 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .no-print{display:none}
+}
+.printbtn{position:fixed;right:1rem;bottom:1rem;background:var(--accent);color:#fff;
+  border:none;border-radius:999px;padding:.7rem 1.3rem;font-size:.9rem;cursor:pointer;
+  box-shadow:0 3px 10px rgba(0,0,0,.2)}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+<header>
+  <h1>🍜 Wabi Navi — Instrukcja obsługi</h1>
+  <div class="sub">日常操作マニュアル / Codzienne operacje</div>
+  <div class="ver">System v7.1 · Toruń</div>
+</header>
+
+<div class="intro">
+  <b>Wszystkie zmiany robisz w arkuszu Google.</b> Menu, ceny i dostępność aktualizują się
+  automatycznie w aplikacji przy stoliku ORAZ na stronie WWW — w ciągu <b>1 minuty</b>.
+  Zdjęcie wgrywasz raz — pojawia się i w aplikacji, i na stronie.
+  <div class="jp-note"><b>すべての操作はGoogleスプレッドシートで行います。</b>メニュー・価格・在庫は注文アプリとHPの両方に<b>1分以内</b>で自動反映。写真は1か所に置けば両方に出ます。</div>
+</div>
+
+<!-- 1. 価格変更 -->
+<section>
+  <h2>💰 Zmiana ceny <span class="pl">価格を変える</span></h2>
+  <span class="path">Arkusz「メニュー / Menu」→ kolumna F (価格)</span>
+  <ol>
+    <li>Znajdź danie i wpisz nową cenę w kolumnie <b>F</b>.
+      <span class="pl">「メニュー / Menu」シートで商品を探し、F列（価格）に新しい数字を入力。</span></li>
+    <li>Gotowe. Nowa cena pojawi się wszędzie w ciągu 1 minuty.
+      <span class="pl">それだけ。1分以内に注文アプリとHPの両方に反映されます。</span></li>
+  </ol>
+</section>
+
+<!-- 2. 売り切れ・非表示 -->
+<section>
+  <h2>🚫 Wyprzedane / ukrycie <span class="pl">売り切れ・非表示にする</span></h2>
+  <span class="path">Arkusz「メニュー / Menu」→ kolumna G (状態)</span>
+  <p style="font-size:.88rem;margin-top:.3rem">W kolumnie <b>G</b> wybierz z listy /
+    G列のプルダウンから選ぶ：</p>
+  <table>
+    <tr><th>Wybór <span class="jp">/ 選択</span></th><th>Efekt <span class="jp">/ 効果</span></th></tr>
+    <tr><td><code>表示</code> (widoczne)</td><td>Normalnie w menu <span class="jp">/ 通常表示</span></td></tr>
+    <tr><td><code>売り切れ</code> (wyprzedane)</td><td>Pokazuje „Wyprzedane", nie można zamówić <span class="jp">/ 「売り切れ」表示・注文不可</span></td></tr>
+    <tr><td><code>非表示</code> (ukryte)</td><td>Znika całkowicie <span class="jp">/ 完全に非表示</span></td></tr>
+  </table>
+  <div class="note">💡 Wyprzedane wraca jednym kliknięciem — wystarczy zmienić z powrotem na
+    <code>表示</code>. / 売り切れは<code>表示</code>に戻すだけで即復活します。</div>
+</section>
+
+<!-- 3. おすすめ -->
+<section>
+  <h2>⭐ Dodanie „Polecane" <span class="pl">おすすめ商品を掲載する</span></h2>
+  <span class="path">Arkusz「おすすめ / Polecane」→ nowy wiersz</span>
+  <p style="font-size:.88rem;margin-top:.3rem">Dodaj nowy wiersz i wypełnij /
+    新しい行を追加して入力：</p>
+  <table>
+    <tr><th>Kol. <span class="jp">/ 列</span></th><th>Co wpisać <span class="jp">/ 入力するもの</span></th><th>Przykład <span class="jp">/ 例</span></th></tr>
+    <tr><td>A</td><td>ID dania (z arkusza Menu, kol. B) <span class="jp">/ 商品ID</span></td><td><code>r4</code></td></tr>
+    <tr><td>B</td><td>Data od <span class="jp">/ 開始日</span></td><td><code>2026-09-01</code></td></tr>
+    <tr><td>C</td><td>Data do <span class="jp">/ 終了日</span></td><td><code>2026-09-30</code></td></tr>
+    <tr><td>D</td><td>Cena promo (puste = normalna) <span class="jp">/ 特価（空欄=通常価格）</span></td><td><code>39</code></td></tr>
+    <tr><td>E</td><td>Znaczek PL <span class="jp">/ バッジPL</span></td><td><code>Oferta −8 zł</code></td></tr>
+    <tr><td>F</td><td>Znaczek JP <span class="jp">/ バッジ日本語</span></td><td><code>9月のおすすめ</code></td></tr>
+    <tr><td>G</td><td>Kolejność <span class="jp">/ 表示順</span></td><td><code>1</code></td></tr>
+  </table>
+  <div class="note"><b>🗑 Koniec promocji / やめる時：</b> usuń wiersz LUB niech minie data w kol. C —
+    zniknie sam. / 行を削除するか、C列の終了日を過ぎさせれば自動で消えます。</div>
+  <div class="note warn"><b>⚠️ Uwaga / 注意：</b> Pełną instrukcję masz zawsze po prawej
+    stronie arkusza (kolumna I「📖 書き方」). / 詳しい書き方はシート右側（I列「📖 書き方」）に
+    いつでも表示されています。<br>
+    Menu / メニュー：<b>🍜 Wabi Navi → ⭐ Polecane: jak dodać?</b></div>
+</section>
+
+<!-- 4. 写真 -->
+<section>
+  <h2>📷 Dodanie zdjęcia <span class="pl">料理写真を追加する</span></h2>
+  <span class="path">GitHub: wabinavi-order / folder images/</span>
+  <ol>
+    <li>Zrób zdjęcie i nazwij plik <b>ID dania + .jpg</b>.
+      <span class="pl">写真を撮り、ファイル名を「商品ID.jpg」にする（例 <code>r4.jpg</code>）。</span></li>
+    <li>Wgraj do folderu <code>images/</code> w repozytorium <code>wabinavi-order</code>.
+      <span class="pl">リポジトリ wabinavi-order の <code>images/</code> フォルダにアップロード。</span></li>
+    <li>Zdjęcie pojawia się <b>i w aplikacji, i na stronie</b> — jeden plik wystarczy.
+      <span class="pl">1枚置けば<b>注文アプリとHPの両方</b>に出ます。二重アップロード不要。</span></li>
+  </ol>
+  <div class="note">Bez zdjęcia danie pokazuje ładną nazwę po japońsku — menu nie „psuje się".
+    / 写真がなくても日本語名が品書き風に表示され、レイアウトは崩れません。</div>
+</section>
+
+<!-- 5. 予約確認 -->
+<section>
+  <h2>📅 Rezerwacje na dziś <span class="pl">本日の予約を見る</span></h2>
+  <span class="path">Arkusz「Rezerwacja / Dziś」（先頭タブ）</span>
+  <ul>
+    <li>Pierwsza zakładka pokazuje dzisiejsze rezerwacje + kalendarz 3 tygodni.
+      <span class="pl">先頭タブに本日の予約と3週間カレンダーが自動表示。</span></li>
+    <li>Ręczne odświeżenie / 手動更新： <b>🍜 Wabi Navi → 📅 Rezerwacje: odśwież dziś</b></li>
+  </ul>
+</section>
+
+<!-- 6. ポイント操作 -->
+<section>
+  <h2>🎫 Punkty gości <span class="pl">お客様のポイント操作</span></h2>
+  <span class="path">Arkusz「係員操作 / Staff」→ kolumny E / F / G</span>
+  <table>
+    <tr><th>Kol. <span class="jp">/ 列</span></th><th>Kliknij ✔ aby <span class="jp">/ チェックで</span></th></tr>
+    <tr><td>E 🍜</td><td>+10 pkt (1 ramen) <span class="jp">/ ラーメン1杯 +10pt</span></td></tr>
+    <tr><td>F 🎌</td><td>+5 pkt (quiz) <span class="jp">/ クイズ正解 +5pt</span></td></tr>
+    <tr><td>G ↩️</td><td>Cofnij <span class="jp">/ 取り消し</span></td></tr>
+  </table>
+  <div class="note">Zaznacz pole ✔ — system pokaże potwierdzenie przed dodaniem.
+    / チェックを入れると確認画面が出てから付与されます。</div>
+</section>
+
+<!-- 7. こまった時 -->
+<section>
+  <h2>🔧 Coś nie działa? <span class="pl">うまくいかない時</span></h2>
+  <table>
+    <tr><th>Objaw <span class="jp">/ 症状</span></th><th>Rozwiązanie <span class="jp">/ 対処</span></th></tr>
+    <tr><td>Zmiana się nie pokazuje <span class="jp">/ 変更が出ない</span></td>
+        <td>Poczekaj 1 min, odśwież stronę <kbd>Ctrl+Shift+R</kbd> / 1分待って強制再読込</td></tr>
+    <tr><td>Menu puste w aplikacji <span class="jp">/ メニューが空</span></td>
+        <td>Sprawdź połączenie internetu <span class="jp">/ ネット接続を確認</span></td></tr>
+    <tr><td>Nie pamiętam jak… <span class="jp">/ やり方を忘れた</span></td>
+        <td>Ta instrukcja + „書き方" w arkuszu <span class="jp">/ この紙＋シート内の凡例</span></td></tr>
+  </table>
+</section>
+
+<!-- 8. メニュー早見表 -->
+<section>
+  <h2>🗂️ Gdzie co jest w menu „🍜 Wabi Navi" <span class="pl">メニュー早見表</span></h2>
+  <p style="font-size:.86rem;margin-top:.3rem">
+    W arkuszu Google, u góry: menu <b>🍜 Wabi Navi</b>. Podzielone na grupy /
+    スプレッドシート上部の「🍜 Wabi Navi」メニュー。用途別に整理：</p>
+  <table>
+    <tr><th>Grupa <span class="jp">/ グループ</span></th><th>Co tam jest <span class="jp">/ 中身</span></th></tr>
+    <tr><td>👆 <b>Na górze</b> / 直下<br><span class="pl">Codziennie / 毎日</span></td>
+        <td>Odśwież rezerwacje dziś · Odśwież personel · <b>Polecane: jak dodać</b><br>
+        <span class="pl">本日の予約更新・係員シート更新・おすすめの書き方</span></td></tr>
+    <tr><td>⚙️ <b>Ustawienia</b><br><span class="pl">設定</span></td>
+        <td>Happy Hour · Quiz · Lekcje ON/OFF · WhatsApp<br>
+        <span class="pl">時間帯ボーナス・クイズ・講座公開・WhatsApp</span></td></tr>
+    <tr><td>📊 <b>Raporty</b><br><span class="pl">分析</span></td>
+        <td>Analiza ruchu · Sprawdź zdjęcia · Sprawdź wygasłe punkty<br>
+        <span class="pl">客足分析・写真チェック・失効チェック</span></td></tr>
+    <tr><td>🆕 <b>Pierwsze uruchomienie</b><br><span class="pl">初回設定</span></td>
+        <td>Tworzenie arkuszy — <b>tylko raz na starcie</b><br>
+        <span class="pl">各シートの新規作成。<b>最初の1回だけ</b>。普段は触らない</span></td></tr>
+    <tr><td>🩹 <b>Konserwacja</b><br><span class="pl">保守・修復</span></td>
+        <td>Naprawy — <b>tylko gdy coś się zepsuje</b><br>
+        <span class="pl">履歴の修復など。<b>不具合時だけ</b>。普段は触らない</span></td></tr>
+  </table>
+  <div class="note warn"><b>⚠️ Uwaga / 注意：</b>
+    Grupy „Pierwsze uruchomienie" i „Konserwacja" — <b>nie ruszaj na co dzień</b>.
+    Używaj tylko według tej instrukcji. /
+    「初回設定」と「保守・修復」は<b>日常では触らないこと</b>。この紙の指示がある時だけ使う。</div>
+</section>
+
+<div class="foot">
+  📍 Wabi Navi — ul. Małe Garbary 5A, 87-100 Toruń<br>
+  和美なび · System v7.1 · Wydrukuj i powieś w kuchni / 印刷して厨房に掲示
+</div>
+</div>
+
+<button class="printbtn no-print" onclick="window.print()">🖨️ Drukuj / 印刷</button>
+
+</body>
+</html>
