@@ -56,27 +56,29 @@ body{
 .nav-inner{max-width:1180px;margin:0 auto;display:flex;gap:.4rem;overflow-x:auto;
   padding:.7rem 1.2rem;scrollbar-width:none}
 .nav-inner::-webkit-scrollbar{display:none}
-.nav a{flex:0 0 auto;font-size:.78rem;text-decoration:none;color:var(--muted);
-  padding:.35rem .85rem;border:1px solid var(--border);border-radius:999px;white-space:nowrap}
-.nav a:hover,.nav a:focus-visible{color:var(--accent);border-color:var(--accent)}
+.nav button{flex:0 0 auto;font-family:var(--ui);font-size:.78rem;cursor:pointer;
+  color:var(--muted);padding:.4rem .95rem;border:1px solid var(--border);
+  border-radius:999px;background:transparent;white-space:nowrap;transition:.15s}
+.nav button:hover{color:var(--accent);border-color:var(--accent)}
+.nav button[aria-pressed="true"]{background:var(--accent);color:#fffcf5;border-color:var(--accent)}
 
 /* ── セクション ───────────────────────────── */
 .wrap{max-width:1180px;margin:0 auto;padding:0 1.2rem 4rem}
-.sec{padding-top:2.8rem;scroll-margin-top:64px}
-.sec-head{display:flex;align-items:baseline;gap:.7rem;margin-bottom:1.2rem;
+.sec{padding-top:2.6rem;scroll-margin-top:70px}
+.sec[hidden]{display:none}
+.sec-head{display:flex;align-items:baseline;gap:.7rem;margin-bottom:1.3rem;
   padding-bottom:.6rem;border-bottom:2px solid var(--ink)}
-.sec-head h2{font-size:1.22rem;font-weight:700;letter-spacing:.01em}
+.sec-head h2{font-size:1.3rem;font-weight:700;letter-spacing:.01em}
 .sec-head .sub{font-size:.75rem;color:var(--muted)}
 .sec-head .cnt{margin-left:auto;font-size:.72rem;color:var(--muted);white-space:nowrap}
 
-/* ── グリッド ─────────────────────────────── */
-.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(228px,1fr))}
-.grid.feature{grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:1.3rem}
+/* ── グリッド：写真を主役にした大判 ───────── */
+.grid{display:grid;gap:1.3rem;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
 
 /* ── カード ───────────────────────────────── */
 .card{background:var(--card);border:1px solid var(--border);border-radius:3px;
   overflow:hidden;display:flex;flex-direction:column;position:relative}
-.shot{position:relative;aspect-ratio:4/3;overflow:hidden;background:#efe4d4}
+.shot{position:relative;aspect-ratio:3/2;overflow:hidden;background:#efe4d4}
 .shot img{width:100%;height:100%;object-fit:cover;display:block;
   transition:transform .5s cubic-bezier(.2,.7,.3,1)}
 .card:hover .shot img{transform:scale(1.05)}
@@ -104,8 +106,7 @@ body{
 .name{font-size:.94rem;font-weight:700;line-height:1.32}
 .name-sub{font-size:.72rem;color:var(--muted)}
 .desc{font-size:.78rem;color:var(--muted);margin-top:.15rem;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.feature .desc{-webkit-line-clamp:3}
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .foot{margin-top:auto;padding-top:.6rem;display:flex;align-items:baseline;gap:.45rem}
 .price{font-size:1.06rem;font-weight:700;font-variant-numeric:tabular-nums}
 .was{font-size:.78rem;color:var(--muted);text-decoration:line-through}
@@ -247,7 +248,7 @@ async function fetchMenu(force) {
 }
 
 /* ── 1品ぶんのカード ──────────────────────────────────────── */
-function card(it, feature) {
+function card(it) {
   const t   = T[LANG];
   const key = it.imgKey || it.id;              // ⭐おすすめは id が p_xxx なので imgKey を使う
   const src = APP + 'images/' + key + '.jpg';
@@ -302,16 +303,29 @@ function section(cat, opts) {
   const title = o.title || (LANG === 'pl' ? cat.namePL : (cat.nameEN || cat.namePL));
   const sub   = o.sub   || (LANG === 'pl' ? (cat.nameEN || '') : (cat.namePL || ''));
   return `
-  <section class="sec" id="cat-${esc(cat.id)}">
+  <section class="sec" id="cat-${esc(cat.id)}" data-cat="${esc(cat.id)}">
     <div class="sec-head">
       <h2>${esc(title)}</h2>
       <span class="sub">${esc(sub)}</span>
       <span class="cnt">${cat.items.length} ${esc(t.items)}</span>
     </div>
-    <div class="grid${o.feature ? ' feature' : ''}">
-      ${cat.items.map(it => card(it, o.feature)).join('')}
+    <div class="grid">
+      ${cat.items.map(it => card(it)).join('')}
     </div>
   </section>`;
+}
+
+/* 現在選択中のカテゴリ（'all' で全部）。言語を切り替えても維持する */
+let ACTIVE = 'all';
+
+/* 絞り込みを適用（セクションの表示/非表示を切り替えるだけ・再描画しない） */
+function applyFilter(cat) {
+  ACTIVE = cat;
+  document.querySelectorAll('.sec').forEach(s =>
+    s.hidden = (cat !== 'all' && s.dataset.cat !== cat));
+  document.querySelectorAll('.nav button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.cat === cat)));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ── 全体描画 ─────────────────────────────────────────────── */
@@ -337,26 +351,32 @@ function render() {
   const rest  = cats.filter(c => c.id !== 'osusume' && c.id !== 'ramen');
 
   let html = '';
-  const navItems = [];
+  const filters = [['all', LANG === 'pl' ? 'Wszystkie' : 'All']];
 
   if (promo) {
-    html += section(promo, { title: '⭐ ' + t.promo, sub: LANG === 'pl' ? 'Oferta specjalna' : 'Special offer', feature: true });
-    navItems.push(['osusume', '⭐ ' + t.promo]);
+    html += section(promo, { title: '⭐ ' + t.promo, sub: LANG === 'pl' ? 'Oferta specjalna' : 'Special offer' });
+    filters.push(['osusume', '⭐ ' + t.promo]);
   }
   if (ramen) {
-    html += section(ramen, { title: 'Ramen', sub: t.ramenSub, feature: true });
-    navItems.push(['ramen', 'Ramen']);
+    html += section(ramen, { title: 'Ramen', sub: t.ramenSub });
+    filters.push(['ramen', 'Ramen']);
   }
   rest.forEach(c => {
     html += section(c);
-    navItems.push([c.id, LANG === 'pl' ? c.namePL : (c.nameEN || c.namePL)]);
+    filters.push([c.id, LANG === 'pl' ? c.namePL : (c.nameEN || c.namePL)]);
   });
 
   document.getElementById('sections').innerHTML = html;
-  document.getElementById('nav-inner').innerHTML =
-    navItems.map(([id, label]) => `<a href="#cat-${esc(id)}">${esc(label)}</a>`).join('');
+  document.getElementById('nav-inner').innerHTML = filters
+    .map(([id, label]) => `<button type="button" data-cat="${esc(id)}">${esc(label)}</button>`).join('');
+  document.querySelectorAll('.nav button').forEach(b =>
+    b.addEventListener('click', () => applyFilter(b.dataset.cat)));
   document.getElementById('nav').hidden = false;
   document.getElementById('state').style.display = 'none';
+
+  // 選択中のカテゴリを言語切替後も維持（消えたカテゴリなら全件に戻す）
+  if (ACTIVE !== 'all' && !cats.some(c => c.id === ACTIVE)) ACTIVE = 'all';
+  applyFilter(ACTIVE);
 
   const n = cats.reduce((a, c) => a + (c.id === 'osusume' ? 0 : c.items.length), 0);
   document.getElementById('updated').textContent =
