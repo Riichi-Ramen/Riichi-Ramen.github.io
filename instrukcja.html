@@ -25,6 +25,7 @@ section:last-child{border-bottom:none}
 h2{font-size:1.05rem;color:var(--accent);margin-bottom:.2rem;
   display:flex;align-items:center;gap:.5rem}
 h2 .pl{font-size:.72rem;color:var(--muted);font-weight:400;font-style:italic}
+h3{border-left:3px solid var(--gold);padding-left:.6rem;margin-bottom:.3rem}
 .path{display:inline-block;font-size:.78rem;background:var(--soft);border:1px solid var(--line);
   border-radius:5px;padding:.15rem .5rem;margin:.4rem 0;color:var(--ink)}
 ol,ul{margin:.5rem 0 .3rem 1.3rem}
@@ -124,18 +125,65 @@ kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-
 
 <!-- 4. 写真 -->
 <section>
-  <h2>📷 Dodanie zdjęcia <span class="pl">料理写真を追加する</span></h2>
-  <span class="path">GitHub: wabinavi-order / folder images/</span>
+  <h2>📸 Zdjęcia przez e-mail <span class="pl">写真をメールで送る（かんたん・自動）</span></h2>
+  <span class="path">Wyślij e-mail na / 送信先： <b>[専用アドレスをここに記入]</b></span>
+  <div class="note">Nie musisz wchodzić na GitHub. Wyślij e-mail — zdjęcie samo trafi
+    do aplikacji i na stronę (ok. 10 min). /
+    <span class="jp">GitHubを触る必要はありません。メールを送れば、写真は自動で注文アプリとHPに反映されます（約10分）。</span></div>
+
+  <h3 style="margin-top:1rem;font-size:.98rem;color:var(--ink)">
+    🍜 Zdjęcie istniejącego dania <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ 既存メニューの写真を更新</span></h3>
   <ol>
-    <li>Zrób zdjęcie i nazwij plik <b>ID dania + .jpg</b>.
-      <span class="pl">写真を撮り、ファイル名を「商品ID.jpg」にする（例 <code>r4.jpg</code>）。</span></li>
-    <li>Wgraj do folderu <code>images/</code> w repozytorium <code>wabinavi-order</code>.
-      <span class="pl">リポジトリ wabinavi-order の <code>images/</code> フォルダにアップロード。</span></li>
-    <li>Zdjęcie pojawia się <b>i w aplikacji, i na stronie</b> — jeden plik wystarczy.
-      <span class="pl">1枚置けば<b>注文アプリとHPの両方</b>に出ます。二重アップロード不要。</span></li>
+    <li>Zrób zdjęcie dania telefonem.
+      <span class="pl">スマホで料理写真を撮る。</span></li>
+    <li>Wyślij e-mail: <b>Temat = ID dania</b> (np. <code>r4</code>), zdjęcie w załączniku.
+      <span class="pl">メール送信：<b>件名＝商品ID</b>（例 <code>r4</code>）、写真を添付。本文は空でOK。</span></li>
+    <li>Dostaniesz odpowiedź „✅ zaktualizowano". Gotowe.
+      <span class="pl">「✅ 更新しました」と返信が来たら完了。</span></li>
   </ol>
-  <div class="note">Bez zdjęcia danie pokazuje ładną nazwę po japońsku — menu nie „psuje się".
-    / 写真がなくても日本語名が品書き風に表示され、レイアウトは崩れません。</div>
+  <div class="note">ID dania znajdziesz w arkuszu „メニュー / Menu", kolumna B.
+    / <span class="jp">商品IDはメニューシートのB列で確認できます。</span></div>
+
+  <h3 style="margin-top:1.1rem;font-size:.98rem;color:var(--ink)">
+    🆕 Nowe danie <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ 新商品を追加する</span></h3>
+  <ol>
+    <li><b>Najpierw</b> dodaj danie w arkuszu „メニュー / Menu": nowy wiersz,
+        wpisz ID, nazwę, cenę, kategorię.
+      <span class="pl"><b>先に</b>メニューシートに行を追加し、ID・名前・価格・カテゴリを入力。</span></li>
+    <li>ID nadaj wg wzoru: ramen <code>r29</code>, onigiri <code>o13</code>,
+        przystawka <code>a19</code>, napój <code>n41</code> (prefiks + kolejny numer).
+      <span class="pl">IDは規則どおり：ラーメン<code>r29</code>／おにぎり<code>o13</code>／前菜<code>a19</code>／ドリンク<code>n41</code>（接頭辞＋次の番号）。</span></li>
+    <li><b>Potem</b> wyślij zdjęcie e-mailem z tym ID w temacie (jak wyżej).
+      <span class="pl"><b>その後</b>、そのIDを件名にして写真をメール送信（上と同じ手順）。</span></li>
+  </ol>
+  <div class="note warn"><b>⚠️ Ważne / 重要：</b>
+    Kolejność jest ważna — <b>najpierw arkusz, potem zdjęcie</b>.
+    Jeśli wyślesz zdjęcie z ID, którego nie ma w menu, system je odrzuci
+    i odpisze „未登録". /
+    <span class="jp">順番が大事：<b>先にメニュー登録、後で写真</b>。メニューに無いIDで写真を送ると、システムが拒否して「未登録」と返信します。</span></div>
+
+  <h3 style="margin-top:1.1rem;font-size:.98rem;color:var(--ink)">
+    ⭐ Zdjęcie do „Polecane" <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ おすすめ商品の写真</span></h3>
+  <p style="font-size:.9rem;margin-top:.3rem">To samo danie = to samo ID. Wyślij zdjęcie
+    z ID dania — pojawi się też w sekcji „Polecane". /
+    <span class="jp">おすすめも商品そのものなので、通常の商品IDで送ればOK。おすすめ欄にも同じ写真が出ます。</span></p>
+
+  <h3 style="margin-top:1.1rem;font-size:.98rem;color:var(--ink)">
+    🎉 Zdjęcie promocyjne / baner <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ プロモ・宣伝用の写真</span></h3>
+  <ol>
+    <li>Temat = <code>promo_nazwa</code> (np. <code>promo_lato</code>, <code>promo_walentynki</code>).
+      <span class="pl">件名＝<code>promo_名前</code>（例 <code>promo_lato</code>＝夏、<code>promo_walentynki</code>＝バレンタイン）。</span></li>
+    <li>Dowolna nazwa po <code>promo_</code>. Nie musi być w menu.
+      <span class="pl"><code>promo_</code>の後は自由な名前でOK。商品IDでなくてよい。</span></li>
+    <li>Zapisze się jako <code>images/promo/nazwa.jpg</code> — do użycia na stronie.
+      <span class="pl"><code>images/promo/名前.jpg</code>に保存され、HPで使えます。</span></li>
+  </ol>
+
+  <div class="note" style="margin-top:1rem"><b>📱 Wzór wiadomości / メールの書き方：</b><br>
+    Do / 宛先： <b>[専用アドレス]</b><br>
+    Temat / 件名： <code>r4</code> &nbsp;lub / または&nbsp; <code>promo_lato</code><br>
+    Treść / 本文： — (puste / 空でOK)<br>
+    Załącznik / 添付： 1 zdjęcie / 写真1枚</div>
 </section>
 
 <!-- 5. 予約確認 -->
