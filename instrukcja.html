@@ -128,9 +128,9 @@ kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-
   <h2>📸 Zdjęcia przez e-mail <span class="pl">写真をメールで送る（かんたん・自動）</span></h2>
   <span class="path">Wyślij e-mail na / 送信先： <b>wabinavi@gmail.com</b></span>
   <div class="note warn"><b>⚠️ NAJWAŻNIEJSZE / 最重要：</b>
-    Temat MUSI zaczynać się od <code>foto:</code> — inaczej system zignoruje wiadomość.
+    Temat MUSI zaczynać się od <code>foto:</code> (danie) lub <code>promo:</code> (reklama) — inaczej system zignoruje.
     To chroni przed pomyłką ze zwykłą pocztą. /
-    <span class="jp">件名は必ず <code>foto:</code> で始めること。付けないとシステムは無視します（通常メールとの混同を防ぐため）。</span></div>
+    <span class="jp">件名は必ず <code>foto:</code>（商品）または <code>promo:</code>（宣伝）で始めること。付けないと無視されます。</span></div>
   <div class="note">Nie musisz wchodzić na GitHub. Wyślij e-mail — zdjęcie samo trafi
     do aplikacji i na stronę (ok. 10 min). /
     <span class="jp">GitHubを触る必要はありません。メールを送れば、写真は自動で注文アプリとHPに反映されます（約10分）。</span></div>
@@ -175,17 +175,17 @@ kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-
   <h3 style="margin-top:1.1rem;font-size:.98rem;color:var(--ink)">
     🎉 Zdjęcie promocyjne / baner <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ プロモ・宣伝用の写真</span></h3>
   <ol>
-    <li>Temat = <code>foto:promo_nazwa</code> (np. <code>foto:promo_lato</code>).
-      <span class="pl">件名＝<code>foto:promo_名前</code>（例 <code>foto:promo_lato</code>＝夏）。</span></li>
-    <li>Dowolna nazwa po <code>promo_</code>. Nie musi być w menu.
-      <span class="pl"><code>promo_</code>の後は自由な名前でOK。商品IDでなくてよい。</span></li>
+    <li>Temat = <code>promo:nazwa</code> (np. <code>promo:lato</code>).
+      <span class="pl">件名＝<code>promo:名前</code>（例 <code>promo:lato</code>＝夏）。</span></li>
+    <li>Dowolna nazwa po <code>promo:</code>. Nie musi być w menu.
+      <span class="pl"><code>promo:</code>の後は自由な名前でOK。商品IDでなくてよい。</span></li>
     <li>Zapisze się jako <code>images/promo/nazwa.jpg</code> — do użycia na stronie.
       <span class="pl"><code>images/promo/名前.jpg</code>に保存され、HPで使えます。</span></li>
   </ol>
 
   <div class="note" style="margin-top:1rem"><b>📱 Wzór wiadomości / メールの書き方：</b><br>
     Do / 宛先： <b>wabinavi@gmail.com</b><br>
-    Temat / 件名： <code>foto:r4</code> &nbsp;lub / または&nbsp; <code>foto:promo_lato</code><br>
+    Temat / 件名： <code>foto:r4</code> &nbsp;lub / または&nbsp; <code>promo:lato</code><br>
     Treść / 本文： — (puste / 空でOK)<br>
     Załącznik / 添付： 1 zdjęcie / 写真1枚</div>
 </section>
@@ -193,15 +193,15 @@ kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-
 <!-- 4b. SNS投稿パッケージ -->
 <section>
   <h2>📣 Post na social media <span class="pl">SNSに投稿する（プロモ写真から自動生成）</span></h2>
-  <div class="note">Gdy wyślesz zdjęcie promo (temat <code>promo_...</code>), dostaniesz e-mail
+  <div class="note">Gdy wyślesz zdjęcie promo (temat <code>promo:...</code>), dostaniesz e-mail
     z gotowymi tekstami na Facebook, Instagram, TikTok i WhatsApp. Wklej i opublikuj. /
-    <span class="jp">プロモ写真（件名 <code>promo_...</code>）を送ると、Facebook・Instagram・TikTok・WhatsApp用の投稿文が入ったメールが届きます。貼って投稿するだけ。</span></div>
+    <span class="jp">プロモ写真（件名 <code>promo:...</code>）を送ると、Facebook・Instagram・TikTok・WhatsApp用の投稿文が入ったメールが届きます。貼って投稿するだけ。</span></div>
 
   <h3 style="margin-top:1rem;font-size:.98rem;color:var(--ink)">
     Jak to działa <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ 使い方</span></h3>
   <ol>
-    <li>Wyślij zdjęcie z tematem <code>foto:promo_nazwa</code> (np. <code>foto:promo_lato</code>).
-      <span class="pl">件名 <code>foto:promo_名前</code> で写真を送る（例 <code>foto:promo_lato</code>＝夏）。</span></li>
+    <li>Wyślij zdjęcie z tematem <code>promo:nazwa</code> (np. <code>promo:lato</code>).
+      <span class="pl">件名 <code>promo:名前</code> で写真を送る（例 <code>promo:lato</code>＝夏）。</span></li>
     <li><b>W treści e-maila wpisz swój tekst reklamowy po polsku</b> (1–3 zdania).
         Jeśli zostawisz puste — użyjemy gotowego szablonu.
       <span class="pl"><b>メール本文にポーランド語で宣伝文を書く</b>（1〜3文）。空なら定型文が使われます。</span></li>
@@ -230,7 +230,7 @@ kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-
 
   <div class="note" style="margin-top:1rem"><b>📱 Wzór / 書き方の例：</b><br>
     Do / 宛先： <b>wabinavi@gmail.com</b><br>
-    Temat / 件名： <code>foto:promo_lato</code><br>
+    Temat / 件名： <code>promo:lato</code><br>
     Treść / 本文： <i>Letnie Tantan Ramen już w menu! Ostry i kremowy.</i><br>
     Załącznik / 添付： 1 zdjęcie / 写真1枚</div>
 </section>
