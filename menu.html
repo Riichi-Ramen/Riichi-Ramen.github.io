@@ -188,6 +188,16 @@ const GAS = 'https://script.google.com/macros/s/AKfycbztP0245VXY7DRrjOQC9m4tu-DW
 const CACHE_KEY = 'wabi_menu_v1';
 const CACHE_MS  = 5 * 60 * 1000;
 
+// 画像キャッシュ回避タグ：30分ごとに変わる値（例 2026081410_00 / _30）。
+// 写真を差し替えると、同じ30分内はキャッシュが効いて軽く、最大30分で全員に反映される。
+// 差し替え直後に自分で確認したい時は Ctrl+Shift+R で即最新が見られる。
+const CACHE_TAG = (() => {
+  const d = new Date();
+  const p = n => String(n).padStart(2, '0');
+  const half = d.getMinutes() < 30 ? '00' : '30';   // 0〜29分→00 / 30〜59分→30
+  return '' + d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + p(d.getHours()) + '_' + half;
+})();
+
 const T = {
   pl:{ title:'Menu', lead:'Ceny i dostępność pobierane są na żywo z naszej kuchni.',
        loading:'Wczytywanie menu…',
@@ -251,7 +261,7 @@ async function fetchMenu(force) {
 function card(it) {
   const t   = T[LANG];
   const key = it.imgKey || it.id;              // ⭐おすすめは id が p_xxx なので imgKey を使う
-  const src = APP + 'images/' + key + '.jpg';
+  const src = APP + 'images/' + key + '.jpg?v=' + CACHE_TAG;   // ?v=… は1時間ごとに変わりキャッシュを更新
 
   const name = LANG === 'pl' ? it.namePL : (it.nameEN || it.namePL);
   const sub  = LANG === 'pl' ? (it.nameEN || '') : (it.namePL || '');
