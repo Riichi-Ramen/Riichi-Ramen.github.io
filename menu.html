@@ -221,6 +221,20 @@ let DATA = null;
 const esc = s => String(s ?? '').replace(/[&<>"']/g,
   c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+/* 画像の読み込み失敗時の処理。
+   Polecane専用写真（images/promo/ID.jpg）が無ければ、通常メニュー写真
+   （data-fallback）に一度だけ切り替える。それも無ければ品書き表示にする。 */
+function handleImgError_(img) {
+  const fb = img.getAttribute('data-fallback');
+  if (fb && img.src !== fb) {
+    img.removeAttribute('data-fallback');   // 二重フォールバックを防ぐ
+    img.src = fb;
+    return;
+  }
+  img.parentElement.classList.add('noshot');
+  img.remove();
+}
+
 /* 縦書き用に日本語名を整える
    ・半角括弧 ( ) は縦書きで倒れるため全角（）に置換
    ・1〜2桁の数字は「縦中横」で正立させる（3桁以上は慣例どおり横倒しのまま）*/
@@ -258,10 +272,20 @@ async function fetchMenu(force) {
 }
 
 /* ── 1品ぶんのカード ──────────────────────────────────────── */
-function card(it) {
+function card(it, catId) {
   const t   = T[LANG];
   const key = it.imgKey || it.id;              // ⭐おすすめは id が p_xxx なので imgKey を使う
-  const src = APP + 'images/' + key + '.jpg?v=' + CACHE_TAG;   // ?v=… は1時間ごとに変わりキャッシュを更新
+  const normalSrc = APP + 'images/' + key + '.jpg?v=' + CACHE_TAG;
+
+  // Polecane欄だけ、専用写真（polecane:商品ID で送られたもの）があれば優先する。
+  // 無ければ（onerrorで）通常メニューの写真にフォールバックする。
+  const isPolecane = catId === 'osusume';
+  const polecaneSrc = APP + 'images/polecane/' + key + '.jpg?v=' + CACHE_TAG;
+  const src = isPolecane ? polecaneSrc : normalSrc;
+  // フォールバック順：Polecane専用 → 通常写真 → 品書き表示（noshot）
+  const fallbackAttr = isPolecane
+    ? `data-fallback="${esc(normalSrc)}"`
+    : '';
 
   const name = LANG === 'pl' ? it.namePL : (it.nameEN || it.namePL);
   const sub  = LANG === 'pl' ? (it.nameEN || '') : (it.namePL || '');
@@ -284,8 +308,8 @@ function card(it) {
   return `
   <article class="card${off ? ' off' : ''}">
     <div class="shot" data-key="${esc(key)}">
-      <img src="${esc(src)}" alt="${esc(name)}" loading="lazy" decoding="async"
-           onerror="this.parentElement.classList.add('noshot');this.remove()">
+      <img src="${esc(src)}" alt="${esc(name)}" loading="lazy" decoding="async" ${fallbackAttr}
+           onerror="handleImgError_(this)">
       ${jp ? `<div class="tanzaku${jp.length > 8 ? ' long' : ''}" aria-hidden="true">${tategaki(jp)}</div>` : ''}
       ${it.origPrice ? `<div class="ribbon">${esc(t.promo)}</div>` : ''}
       ${veil ? `<div class="veil"><span>${esc(veil)}</span></div>` : ''}
@@ -320,7 +344,7 @@ function section(cat, opts) {
       <span class="cnt">${cat.items.length} ${esc(t.items)}</span>
     </div>
     <div class="grid">
-      ${cat.items.map(it => card(it)).join('')}
+      ${cat.items.map(it => card(it, cat.id)).join('')}
     </div>
   </section>`;
 }

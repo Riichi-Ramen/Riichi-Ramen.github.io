@@ -169,10 +169,45 @@ kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-
     <span class="jp">順番が大事：<b>先にメニュー登録、後で写真</b>。メニューに無いIDで写真を送ると、システムが拒否して「未登録」と返信します。</span></div>
 
   <h3 style="margin-top:1.1rem;font-size:.98rem;color:var(--ink)">
-    ⭐ Zdjęcie do „Polecane" <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ おすすめ商品の写真</span></h3>
-  <p style="font-size:.9rem;margin-top:.3rem">To samo danie = to samo ID. Wyślij zdjęcie
-    z ID dania — pojawi się też w sekcji „Polecane". /
-    <span class="jp">おすすめも商品そのものなので、通常の商品IDで送ればOK。おすすめ欄にも同じ写真が出ます。</span></p>
+    ⭐ Dodanie dania do „Polecane" <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ Polecaneに商品を載せる（全体の流れ）</span></h3>
+  <p style="font-size:.9rem;margin-top:.3rem">Żeby danie pojawiło się w sekcji „Polecane", potrzebne są 2 kroki. /
+    <span class="jp">Polecane欄に商品を載せるには、2つのステップが必要です。</span></p>
+  <ol>
+    <li><b>① Arkusz „おすすめ / Polecane" — obowiązkowe.</b> Nowy wiersz, wpisz:
+      <span class="pl"><b>①「おすすめ / Polecane」シートに登録（必須）。</b>新しい行に入力：</span>
+      <table style="margin-top:.5rem">
+        <tr><th>Kol. / 列</th><th>Co wpisać / 入力するもの</th><th>Przykład / 例</th></tr>
+        <tr><td>A</td><td>ID dania (z arkusza Menu) / 商品ID</td><td><code>r4</code></td></tr>
+        <tr><td>B / C</td><td>Data od / do / 掲載期間</td><td><code>2026-08-14</code> 〜 <code>2026-08-31</code></td></tr>
+        <tr><td>D</td><td><b>Cena promo</b> (puste = zwykła cena) / <b>特価</b>（空欄なら通常価格）</td><td><code>39</code></td></tr>
+        <tr><td>E</td><td><b>Krótki opis PL</b> (znaczek pod nazwą) / <b>短い説明PL</b>（商品名の下に表示）</td><td><code>Oferta sierpniowa −8 zł</code></td></tr>
+        <tr><td>F</td><td><b>Krótki opis JP</b> / <b>短い説明・日本語</b></td><td><code>8月のおすすめ</code></td></tr>
+        <tr><td>G</td><td>Kolejność / 表示順</td><td><code>1</code></td></tr>
+      </table>
+    </li>
+    <li><b>② Zdjęcie — opcjonalne.</b> Bez tego kroku pokaże się zwykłe zdjęcie z menu.
+      Szczegóły poniżej. /
+      <span class="pl"><b>②写真（任意）。</b>何もしなければ普段のメニュー写真がそのまま使われます。詳しくは次項。</span></li>
+  </ol>
+  <div class="note">💡 D・E・F列は空欄でもOK — その場合は通常価格のまま「Polecane」の印だけが付きます。
+    / <span class="jp">D・E・F列は空欄でも構いません。その場合は通常価格のまま「おすすめ」の印だけが付きます。</span></div>
+
+  <h3 style="margin-top:1.1rem;font-size:.98rem;color:var(--ink)">
+    📷 Zdjęcie do „Polecane" <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ ②Polecane専用の写真（任意）</span></h3>
+  <p style="font-size:.9rem;margin-top:.3rem">Zwykle to samo zdjęcie co w menu (nic nie musisz robić).
+    Jeśli chcesz w „Polecane" pokazać <b>inne, ładniejsze zdjęcie</b> tego samego dania —
+    wyślij je z tematem <code>polecane:ID</code>. /
+    <span class="jp">通常は普段のメニュー写真がそのまま使われます（何もしなくてOK）。
+    「Polecane」欄だけ<b>もっと魅力的な別の写真</b>を見せたい時は、件名 <code>polecane:ID</code> で送ってください。</span></p>
+  <div class="note"><b>Przykład / 例：</b> <code>polecane:r4</code> → tylko sekcja Polecane pokaże
+    to nowe zdjęcie, zwykłe menu (Ramen) zostaje bez zmian. /
+    <span class="jp"><code>polecane:r4</code> と送ると、Polecane欄だけ新しい写真になり、
+    通常のRamenメニューの写真は変わりません。</span></div>
+  <div class="note warn"><b>⚠️ Różnica / 違いに注意：</b>
+    <code>foto:</code> = zwykłe menu ・ <code>promo:</code> = baner SNS (dowolna nazwa) ・
+    <code>polecane:</code> = tylko sekcja Polecane (musi być prawdziwe ID dania). /
+    <span class="jp"><code>foto:</code>＝通常メニュー ／ <code>promo:</code>＝SNS宣伝バナー（自由な名前）／
+    <code>polecane:</code>＝Polecane欄専用（実在する商品IDが必要）。この3つは別物です。</span></div>
 
   <h3 style="margin-top:1.1rem;font-size:.98rem;color:var(--ink)">
     🎉 Zdjęcie promocyjne / baner <span style="font-weight:400;color:var(--muted);font-size:.8rem">/ プロモ・宣伝用の写真</span></h3>
@@ -187,7 +222,7 @@ kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-
 
   <div class="note" style="margin-top:1rem"><b>📱 Wzór wiadomości / メールの書き方：</b><br>
     Do / 宛先： <b>wabinavi@gmail.com</b><br>
-    Temat / 件名： <code>foto:r4</code> &nbsp;lub / または&nbsp; <code>promo:lato</code><br>
+    Temat / 件名： <code>foto:r4</code> &nbsp;/&nbsp; <code>promo:lato</code> &nbsp;/&nbsp; <code>polecane:r4</code><br>
     Treść / 本文： — (puste / 空でOK)<br>
     Załącznik / 添付： 1 zdjęcie / 写真1枚</div>
 </section>
