@@ -52,6 +52,10 @@ header p{font-size:12px;color:#8a7c66;margin-top:.5rem;letter-spacing:.08em}
 
 .form-group{margin-bottom:1rem}
 label.field{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.req-tag{color:var(--red);margin-left:.3rem;font-weight:700}
+.req-tag.hide{display:none}
+.opt-tag{display:none;margin-left:.45rem;color:var(--gold);text-transform:none;letter-spacing:.02em;font-size:10px;font-style:italic}
+.opt-tag.show{display:inline}
 input,select{width:100%;padding:11px 13px;border:1px solid var(--stone);background:#fff;font-size:16px;font-family:inherit;color:var(--text);border-radius:2px;outline:none;transition:border-color .2s}
 input:focus,select:focus{border-color:var(--red)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
@@ -128,13 +132,17 @@ footer a{color:var(--red);text-decoration:none}
       </div>
 
       <div class="form-group">
-        <label class="field" data-pl="Imię i nazwisko" data-en="Full name" data-ja="お名前" data-uk="Ім'я та прізвище" data-be="Імя і прозвішча">Imię i nazwisko</label>
+        <label class="field">
+          <span data-pl="Imię i nazwisko" data-en="Full name" data-ja="お名前" data-uk="Ім'я та прізвище" data-be="Імя і прозвішча">Imię i nazwisko</span><span class="req-tag" id="nameReq">*</span><span class="opt-tag" id="nameOpt">opcjonalne / optional</span>
+        </label>
         <input type="text" id="resName" required placeholder="Jan Kowalski" autocomplete="name">
-        <p class="note" id="nameNote" style="display:none" data-pl="Rozpoznaliśmy Twoje konto — możesz pominąć to pole." data-en="We recognised your account — you can leave this blank." data-ja="会員として確認できたため、この欄は空欄で構いません。" data-uk="Ми впізнали ваш акаунт — можете залишити порожнім." data-be="Мы пазналі ваш акаўнт — можаце пакінуць пустым.">Rozpoznaliśmy Twoje konto — możesz pominąć to pole.</p>
+        <p class="note" id="nameNote" style="display:none" data-pl="Rozpoznaliśmy Twoje konto — imię i telefon uzupełnimy z Twojego konta. Możesz zostawić te pola puste." data-en="We recognised your account — we'll fill in your name and phone from it. You can leave these fields blank." data-ja="会員として確認できました。お名前と電話番号は会員情報から補完しますので、空欄のままで結構です。" data-uk="Ми впізнали ваш акаунт — ім'я та телефон візьмемо з нього. Ці поля можна залишити порожніми." data-be="Мы пазналі ваш акаўнт — імя і тэлефон возьмем з яго. Гэтыя палі можна пакінуць пустымі.">Rozpoznaliśmy Twoje konto — imię i telefon uzupełnimy z Twojego konta. Możesz zostawić te pola puste.</p>
       </div>
 
       <div class="form-group">
-        <label class="field" data-pl="Telefon kontaktowy" data-en="Phone number" data-ja="電話番号" data-uk="Телефон" data-be="Тэлефон">Telefon kontaktowy</label>
+        <label class="field">
+          <span data-pl="Telefon kontaktowy" data-en="Phone number" data-ja="電話番号" data-uk="Телефон" data-be="Тэлефон">Telefon kontaktowy</span><span class="opt-tag show" id="phoneOpt">opcjonalne / optional</span>
+        </label>
         <input type="tel" id="resPhone" placeholder="+48 000 000 000" autocomplete="tel">
       </div>
 
@@ -309,9 +317,28 @@ function checkMemberDebounced(){
 function applyMemberFieldRules(){
   var isMember = (isMemberCached === true);
   var nm = document.getElementById('resName');
+  var ph = document.getElementById('resPhone');
   var nt = document.getElementById('nameNote');
   if (!nm) return;
-  nm.required = !isMember;
+
+  // 会員と確認できたら氏名は任意（会員台帳から補完される）
+  if (isMember){
+    nm.required = false;
+    nm.removeAttribute('required');       // 属性そのものを外す（保険）
+  } else {
+    nm.required = true;
+    nm.setAttribute('required', '');
+  }
+
+  var optLabel = isMember ? '— opcjonalne / optional' : 'Jan Kowalski';
+  nm.placeholder = optLabel;
+  if (ph) ph.placeholder = isMember ? '— opcjonalne / optional' : '+48 000 000 000';
+
+  var nameReq = document.getElementById('nameReq');
+  var nameOpt = document.getElementById('nameOpt');
+  if (nameReq) nameReq.classList.toggle('hide', isMember);
+  if (nameOpt) nameOpt.classList.toggle('show', isMember);
+
   if (nt) nt.style.display = isMember ? 'block' : 'none';
 }
 
