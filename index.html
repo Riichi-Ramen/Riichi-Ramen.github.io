@@ -185,6 +185,18 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
 .member-banner .mb-cta{display:inline-block;margin-top:.5rem;background:var(--red);color:#fff;
   text-decoration:none;padding:7px 14px;border-radius:2px;font-size:11px;letter-spacing:.06em}
 .member-banner .mb-cta:hover{background:#a93226}
+.member-banner .mb-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:.7rem}
+.member-banner .mb-actions .mb-cta{margin-top:0}
+.member-banner .mb-skip{background:none;border:1px solid var(--stone);color:var(--muted);
+  padding:7px 14px;border-radius:2px;font-size:11px;letter-spacing:.06em;cursor:pointer;
+  font-family:"Inter",sans-serif;transition:border-color .2s,color .2s}
+.member-banner .mb-skip:hover{border-color:var(--red);color:var(--red)}
+.res-result.pending{background:#f5f0e8;border-left-color:var(--gold);color:#5c4708}
+.rr-spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(183,134,11,.28);
+  border-top-color:var(--gold);border-radius:50%;margin-right:.55rem;vertical-align:-2px;
+  animation:rr-spin .8s linear infinite}
+@keyframes rr-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.rr-spinner{animation-duration:2.4s}}
 .res-result{display:none;padding:1.25rem;border-radius:3px;background:#f0f7f2;
   border-left:3px solid #1e7a45;font-size:13px;line-height:1.7;color:#1a4a2e}
 .res-result.error{background:#fdf2f0;border-left-color:var(--red);color:#8a2a1d}
@@ -599,7 +611,32 @@ var T = {
     pl:'Załóż darmowe konto →', en:'Create a free account →', ja:'無料で会員登録する →',
     uk:'Створити акаунт →', be:'Стварыць акаўнт →'
   },
+  guestSkip: {
+    pl:'Rezerwuj bez rejestracji →', en:'Continue without an account →', ja:'登録せずに予約へ進む →',
+    uk:'Продовжити без реєстрації →', be:'Працягнуць без рэгістрацыі →'
+  },
   sending: { pl:'Wysyłanie…', en:'Sending…', ja:'送信中…', uk:'Надсилання…', be:'Адпраўка…' },
+  waiting: {
+    pl:'Przyjmujemy rezerwację…',
+    en:'Recording your reservation…',
+    ja:'ご予約を登録しています…',
+    uk:'Реєструємо бронювання…',
+    be:'Рэгіструем браніраванне…'
+  },
+  waitingLong: {
+    pl:'Jeszcze chwila — prosimy nie zamykać tej strony.',
+    en:'Almost there — please keep this page open.',
+    ja:'もう少しお待ちください。この画面は閉じないでください。',
+    uk:'Ще трохи — не закривайте цю сторінку.',
+    be:'Яшчэ крыху — не закрывайце гэту старонку.'
+  },
+  okSlow: {
+    pl:'Numer rezerwacji wyślemy e-mailem w ciągu kilku minut. Jeśli e-mail nie dotrze, prosimy o telefon: (+48) 693 865 271',
+    en:'Your reservation number will arrive by email within a few minutes. If it does not, please call: (+48) 693 865 271',
+    ja:'ご予約番号は数分以内に確認メールでお送りします。メールが届かない場合はお電話ください：(+48) 693 865 271',
+    uk:'Номер бронювання надішлемо на e-mail протягом кількох хвилин. Якщо лист не прийде, зателефонуйте: (+48) 693 865 271',
+    be:'Нумар бранiравання дашлём на e-mail на працягу некалькіх хвілін. Калі ліст не прыйдзе, патэлефануйце: (+48) 693 865 271'
+  },
   okTitle: {
     pl:'Dziękujemy! Rezerwacja przyjęta.', en:'Thank you! Reservation received.',
     ja:'ありがとうございます。ご予約を承りました。',
@@ -641,7 +678,7 @@ var T = {
 function t(key){ return (T[key] && (T[key][currentLang] || T[key].pl)) || ''; }
 
 /* ── 会員照合（GDPR配慮：会員か否かだけを取得）─────────────── */
-var lastCheckedEmail = '', isMemberCached = null;
+var lastCheckedEmail = '', isMemberCached = null, guestNoticeDismissed = false;
 
 function renderMemberBanner(){
   var box = document.getElementById('memberBanner');
@@ -650,6 +687,8 @@ function renderMemberBanner(){
   if (prompt) prompt.classList.toggle('hidden', isMemberCached !== null);
   applyMemberFieldRules();
   if (isMemberCached === null){ box.style.display = 'none'; return; }
+  // 「登録せずに予約へ進む」を選んだ非会員には、以後バナーを出さない
+  if (isMemberCached === false && guestNoticeDismissed){ box.style.display = 'none'; return; }
   box.style.display = 'block';
   if (isMemberCached === 'checking'){
     box.className = 'member-banner checking';
@@ -664,13 +703,30 @@ function renderMemberBanner(){
   } else {
     box.className = 'member-banner is-guest';
     box.innerHTML = '<span class="mb-title"></span><span class="mb-body"></span>' +
-                    '<br><a class="mb-cta" target="_blank" rel="noopener"></a>';
+                    '<div class="mb-actions">' +
+                      '<a class="mb-cta" target="_blank" rel="noopener"></a>' +
+                      '<button type="button" class="mb-skip"></button>' +
+                    '</div>';
     box.querySelector('.mb-title').textContent = t('guestTitle');
     box.querySelector('.mb-body').textContent  = t('guestBody');
     var a = box.querySelector('.mb-cta');
     a.textContent = t('guestCta');
     a.href = REGISTER_URL;
+    var s = box.querySelector('.mb-skip');
+    s.textContent = t('guestSkip');
+    s.onclick = skipRegistration;
   }
+}
+
+/* 「登録せずに予約へ進む」：バナーを閉じて入力欄へ誘導 */
+function skipRegistration(){
+  guestNoticeDismissed = true;
+  var box = document.getElementById('memberBanner');
+  if (box) box.style.display = 'none';
+  var nm = document.getElementById('resName');
+  if (!nm) return;
+  try { nm.scrollIntoView({ behavior:'smooth', block:'center' }); } catch(e){ nm.scrollIntoView(); }
+  setTimeout(function(){ nm.focus({ preventScroll:true }); }, 250);
 }
 
 var _cmTimer = null;
@@ -742,7 +798,24 @@ function submitReservation(e){
 
   btn.disabled = true;
   btn.textContent = t('sending');
-  result.style.display = 'none';
+
+  // ── 即時フィードバック：押した瞬間に受付中パネルを表示し、待ち時間に応じて文言を更新
+  clearResTimers();
+  resProvisional = false;
+  showResPending(t('sending'));
+  try { result.scrollIntoView({ behavior:'smooth', block:'center' }); } catch(err){}
+  resTimers.push(setTimeout(function(){ showResPending(t('waiting')); }, 2500));
+  resTimers.push(setTimeout(function(){ showResPending(t('waitingLong')); }, 9000));
+  // サーバ側の処理が長引いても、20秒で「受付完了」を確定表示する（番号はメールで通知）
+  resTimers.push(setTimeout(function(){
+    resProvisional = true;
+    form.style.display = 'none';
+    var mb0 = document.getElementById('memberBanner');
+    if (mb0) mb0.style.display = 'none';
+    result.className = 'res-result';
+    result.style.display = 'block';
+    result.innerHTML = '<strong>' + esc(t('okTitle')) + '</strong><br>' + esc(t('okSlow'));
+  }, 20000));
 
   fetch(GAS_URL, {
     method: 'POST',
@@ -751,6 +824,7 @@ function submitReservation(e){
   })
   .then(function(r){ return r.json(); })
   .then(function(j){
+    clearResTimers();
     if (j && j.status === 'ok'){
       form.style.display = 'none';
       var mb = document.getElementById('memberBanner');
@@ -770,11 +844,30 @@ function submitReservation(e){
       showResError((j && j.message) || t('errNet'), btn);
     }
   })
-  .catch(function(){ showResError(t('errNet'), btn); });
+  .catch(function(){ clearResTimers(); showResError(t('errNet'), btn); });
+}
+
+/* ── 送信中の進捗表示 ─────────────────────────────────────── */
+var resTimers = [], resProvisional = false;
+
+function clearResTimers(){
+  resTimers.forEach(function(id){ clearTimeout(id); });
+  resTimers = [];
+}
+
+function showResPending(msg){
+  var result = document.getElementById('resResult');
+  if (!result) return;
+  result.className = 'res-result pending';
+  result.style.display = 'block';
+  result.innerHTML = '<span class="rr-spinner"></span>' + esc(msg);
 }
 
 function showResError(msg, btn){
   var result = document.getElementById('resResult');
+  var form   = document.getElementById('reservationForm');
+  if (resProvisional && form) form.style.display = '';   // 暫定完了を出したあとの失敗：再送できるよう戻す
+  resProvisional = false;
   result.className = 'res-result error';
   result.style.display = 'block';
   result.textContent = msg;
