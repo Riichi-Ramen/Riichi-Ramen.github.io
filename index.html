@@ -97,6 +97,21 @@ nav{background:#ffffff;border-bottom:3px solid #c0392b;border-bottom:3px solid v
 .philo-en{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8a7c66;margin-bottom:.5rem}
 .philo-desc{font-size:12px;color:var(--text);line-height:1.8}
 
+/* ABOUT / O NAS */
+.about{background:var(--white);padding:4.5rem 2.5rem 3.5rem}
+.about-inner{max-width:820px;margin:0 auto}
+.about-head{display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem}
+.about-head .divider-red{margin-bottom:0;flex:none}
+.about-title{font-family:"Noto Serif JP",serif;font-size:clamp(22px,3vw,30px);color:var(--ink);letter-spacing:.04em}
+.about-lead{font-size:15px;line-height:2;color:var(--text);margin-bottom:1.35rem}
+.about-lead strong{font-weight:500}
+.about-body{font-size:13.5px;line-height:2.1;color:#5f5443;margin-bottom:1.1rem}
+.about-body:last-child{margin-bottom:0}
+.about-sign{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--stone);
+  display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.about-sign img{height:44px;width:auto;opacity:.9}
+.about-sign span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
 /* RESERVATION */
 .reservation{display:grid;grid-template-columns:1fr 1fr;gap:4rem;padding:4rem 2.5rem;align-items:start}
 .res-title{font-family:"Noto Serif JP",serif;font-size:clamp(22px,3vw,30px);color:var(--ink);margin-bottom:.75rem;line-height:1.2}
@@ -182,6 +197,9 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
   nav{padding:.4rem 1.1rem}
   .nav-logo img{height:56px!important}
   .philosophy{padding:2.5rem 1.5rem}
+  .about{padding:3rem 1.25rem 2.25rem}
+  .about-lead{font-size:14.5px;line-height:1.95}
+  .about-body{font-size:13.5px;line-height:1.95}
   .philo-kanji{font-size:36px}
   .philo-desc{font-size:13px}
   .member-prompt,.member-banner{font-size:13px;padding:.85rem .9rem}
@@ -214,6 +232,7 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
   </div>
   <ul class="nav-links">
     <li><a href="menu.html" data-pl="Menu" data-en="Menu" data-ja="メニュー" data-uk="Меню" data-be="Меню">Menu</a></li>
+    <li><a href="gallery.html" data-pl="Galeria" data-en="Gallery" data-ja="ギャラリー" data-uk="Галерея" data-be="Галерэя">Galeria</a></li>
     <li><a href="#onas" data-pl="O nas" data-en="About" data-ja="私たちについて" data-uk="Про нас" data-be="Пра нас">O nas</a></li>
     <li><a href="https://riichi-ramen.github.io/wabinavi-order/card.html" data-pl="Klub" data-en="Club" data-ja="会員" data-uk="Клуб" data-be="Клуб">Klub</a></li>
     <li><a href="#rezerwacja" class="cta" data-pl="Rezerwacja" data-en="Reserve" data-ja="ご予約" data-uk="Бронювання" data-be="Браніраванне">Rezerwacja</a></li>
@@ -306,7 +325,29 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
   </div>
 </section>
 
-<div class="philosophy" id="onas">
+<section class="about" id="onas">
+  <div class="about-inner">
+    <div class="about-head">
+      <div class="divider-red"></div>
+      <h2 class="about-title" data-pl="O nas" data-en="About us" data-ja="私たちについて" data-uk="Про нас" data-be="Пра нас">O nas</h2>
+    </div>
+
+    <p class="about-lead" data-pl="Wabi Navi 和美なび to japońska restauracja położona w samym sercu toruńskiej Starówki." data-en="Wabi Navi 和美なび is a Japanese restaurant located in the heart of Toruń's historic Old Town." data-ja="Wabi Navi 和美なびは、トルン旧市街にある日本食レストランです。" data-uk="Wabi Navi 和美なび — японський ресторан у самому серці історичного Старого міста Торуня." data-be="Wabi Navi 和美なび — японскі рэстаран у самым сэрцы гістарычнага Старога горада Торуня.">Wabi Navi 和美なび to japońska restauracja położona w samym sercu toruńskiej Starówki.</p>
+
+    <p class="about-body" data-pl="W lipcu 2017 roku trójka Japończyków połączyła siły, aby otworzyć pierwszy w Toruniu lokal specjalizujący się w rāmenie. Nazwa Wabi Navi jest połączeniem japońskiego pojęcia estetycznego „wabi-sabi” oraz słowa „navigation” – nawigacja. Wyraża naszą ideę odkrywania piękna i wartości w prostych, codziennych rzeczach." data-en="In July 2017, three Japanese friends joined forces to open Toruń's first restaurant specialising in ramen. The name Wabi Navi combines the Japanese aesthetic concept of “wabi-sabi” with the word “navigation”. It reflects our wish to help people discover beauty and richness in the simple things of everyday life." data-ja="2017年7月、3人の日本人が力を合わせ、市内初のラーメン専門店としてオープンしました。屋号は、日本の美意識「侘び寂び」と「ナビゲーション」を組み合わせた造語。日々の何気ないものの中にある美しさや豊かさを見つけてほしい、という思いを込めています。" data-uk="У липні 2017 року троє японців об'єднали свої зусилля, щоб відкрити перший у Торуні заклад, що спеціалізується на рамені. Назва Wabi Navi поєднує японське естетичне поняття «wabi-sabi» та слово «navigation» — навігація. У ній втілено наше бажання допомагати людям відкривати красу й цінність у простих речах повсякденного життя." data-be="У ліпені 2017 года трое японцаў аб'ядналі свае намаганні, каб адкрыць першы ў Торуні рэстаран, які спецыялізуецца на рамене. Назва Wabi Navi спалучае японскае эстэтычнае паняцце «wabi-sabi» і слова «navigation» — навігацыя. Яна адлюстроўвае наша жаданне дапамагаць людзям знаходзіць прыгажосць і каштоўнасць у простых рэчах паўсядзённага жыцця.">W lipcu 2017 roku trójka Japończyków połączyła siły, aby otworzyć pierwszy w Toruniu lokal specjalizujący się w rāmenie. Nazwa Wabi Navi jest połączeniem japońskiego pojęcia estetycznego „wabi-sabi” oraz słowa „navigation” – nawigacja. Wyraża naszą ideę odkrywania piękna i wartości w prostych, codziennych rzeczach.</p>
+
+    <p class="about-body" data-pl="Podstawą naszego rāmenu jest sprężysty makaron własnej produkcji oraz aromatyczny wywar przygotowywany przez wiele godzin. Oprócz różnych rodzajów rāmenu serwujemy również popularne japońskie dania i przekąski, takie jak gyōza czy takoyaki." data-en="Our ramen features firm, springy noodles made in-house and flavourful broths carefully prepared over many hours. Alongside a variety of ramen, we also serve familiar Japanese favourites such as gyoza and takoyaki." data-ja="コシのある自家製麺と、長時間かけて丁寧に仕込んだスープで作る各種ラーメンをはじめ、餃子やたこ焼きなど、親しみのある一品料理もご用意しています。" data-uk="Основою нашого рамену є пружна локшина власного виробництва та ароматний бульйон, який ми ретельно готуємо протягом багатьох годин. Окрім різних видів рамену, ми пропонуємо й популярні японські страви та закуски, зокрема ґьодза й такоякі." data-be="Аснова нашага рамена — пругкая локшына ўласнай вытворчасці і духмяны булён, які мы старанна гатуем на працягу многіх гадзін. Акрамя розных відаў рамена, мы прапануем таксама папулярныя японскія стравы і закускі, у тым ліку гёдза і такаякі.">Podstawą naszego rāmenu jest sprężysty makaron własnej produkcji oraz aromatyczny wywar przygotowywany przez wiele godzin. Oprócz różnych rodzajów rāmenu serwujemy również popularne japońskie dania i przekąski, takie jak gyōza czy takoyaki.</p>
+
+    <p class="about-body" data-pl="Jeśli tęsknią Państwo za japońską kuchnią albo chcą na chwilę odpocząć podczas podróży, serdecznie zapraszamy do Wabi Navi. Właściciel wraz z całym zespołem z przyjemnością Państwa ugości." data-en="Whether you are missing Japanese food or simply looking for a place to relax during your travels, we warmly invite you to visit us. The owner and the entire Wabi Navi team look forward to welcoming you." data-ja="和食が恋しくなったとき、旅の途中でほっと一息つきたいときに、ぜひご利用ください。店主をはじめ、スタッフ一同、皆さまのご来店を心よりお待ちしております。" data-uk="Якщо ви скучили за японською кухнею або просто хочете трохи відпочити під час подорожі, завітайте до Wabi Navi. Власник і вся наша команда щиро чекатимуть на вас." data-be="Калі вы сумуеце па японскай кухні або проста хочаце крыху адпачыць падчас падарожжа, завітайце ў Wabi Navi. Уладальнік і ўся наша каманда будуць шчыра рады вас вітаць.">Jeśli tęsknią Państwo za japońską kuchnią albo chcą na chwilę odpocząć podczas podróży, serdecznie zapraszamy do Wabi Navi. Właściciel wraz z całym zespołem z przyjemnością Państwa ugości.</p>
+
+    <div class="about-sign">
+      <img src="images/logo-kanji-light.png" alt="和美なび">
+      <span data-pl="Od lipca 2017 · Toruń" data-en="Since July 2017 · Toruń" data-ja="2017年7月創業 · トルン" data-uk="З липня 2017 · Торунь" data-be="З ліпеня 2017 · Торунь">Od lipca 2017 · Toruń</span>
+    </div>
+  </div>
+</section>
+
+<div class="philosophy">
   <div class="philo-mark"><img src="images/logo-kanji-light.png" alt="和美なび"></div>
   <div class="philo-item">
     <span class="philo-kanji">技</span><p class="philo-en">Craft</p>
