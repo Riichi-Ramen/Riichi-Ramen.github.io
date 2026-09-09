@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- rezerwacja.html ・ v1.1-club-off-20260909 -->
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
@@ -209,6 +210,18 @@ footer a{color:var(--red);text-decoration:none}
 var GAS_URL = 'https://script.google.com/macros/s/AKfycbztP0245VXY7DRrjOQC9m4tu-DWKcGzPwT0QzBNgxfLxgczmYmQYlP8ErEz4umoJ3FN/exec';
 var REGISTER_URL = 'https://riichi-ramen.github.io/wabinavi-order/stamp.html';
 
+/* ── 🎁 会員機能の表示・照合を行うか（2026-09-09 追加）─────────
+   会員制度は10月開始予定。それまで、このページでは
+     ・「Wabi Navi Club の会員の方は…」の黄色い案内
+     ・メール入力時の会員確認バナー（照合通信を含む）
+     ・送信完了画面の会員向け文言・入会案内
+   をすべて出さない。GASの SHOW_MEMBER_INVITE（24_Web.gs）と対になる設定。
+   10月に開始するときは true に戻すだけでよい。
+   ※ 予約の送信・確認メール・シート記録はこの設定の影響を受けない。
+   ※ サーバー側（handleWebReservation）の会員照合は従来どおり動くので、
+     予約シートへの会員ID記録と店への「⭐会員」通知は残る。 */
+var SHOW_MEMBER_FEATURES = false;
+
 var currentLang = 'pl';
 
 var T = {
@@ -310,6 +323,7 @@ function updateDayOfWeek(){
 var lastCheckedEmail = '', isMemberCached = null, guestNoticeDismissed = false, cmTimer = null;
 
 function checkMemberDebounced(){
+  if (!SHOW_MEMBER_FEATURES) return;
   clearTimeout(cmTimer);
   cmTimer = setTimeout(checkMember, 700);
 }
@@ -346,8 +360,9 @@ function renderMemberBanner(){
   var box = document.getElementById('memberBanner');
   if (!box) return;
   var prompt = document.getElementById('memberPrompt');
-  if (prompt) prompt.classList.toggle('hidden', isMemberCached !== null);
+  if (prompt) prompt.classList.toggle('hidden', !SHOW_MEMBER_FEATURES || isMemberCached !== null);
   applyMemberFieldRules();
+  if (!SHOW_MEMBER_FEATURES){ box.style.display = 'none'; return; }
   if (isMemberCached === null){ box.style.display = 'none'; return; }
   if (isMemberCached === false && guestNoticeDismissed){ box.style.display = 'none'; return; }
   box.style.display = 'block';
@@ -387,6 +402,7 @@ function skipRegistration(){
 }
 
 function checkMember(){
+  if (!SHOW_MEMBER_FEATURES) return;
   var el = document.getElementById('resEmail');
   if (!el) return;
   var email = el.value.trim();
@@ -494,8 +510,10 @@ function submitReservation(e){
       result.style.display = 'block';
       result.innerHTML =
         '<strong>' + esc(t('okTitle')) + '</strong><br>' +
-        esc(t('okMail')) + ' <span class="rr-id">' + esc(j.id) + '</span><br><br>' +
-        esc(j.isMember ? t('okMember') : t('okGuest'));
+        esc(t('okMail')) + ' <span class="rr-id">' + esc(j.id) + '</span>' +
+        (SHOW_MEMBER_FEATURES
+          ? '<br><br>' + esc(j.isMember ? t('okMember') : t('okGuest'))
+          : '');
     } else if (j && j.status === 'duplicate'){
       result.className = 'result';
       result.style.display = 'block';
