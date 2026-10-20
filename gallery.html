@@ -235,21 +235,10 @@ footer{background:#100c06;padding:1.5rem 2rem;display:flex;justify-content:space
   </div>
 </div>
 <div class="photo-item" data-cat="Sushi / 寿司">
-  <div class="photo-wrap">
-    <img src="images/gallery-fried-mix.jpg" alt="Sushi Roll 1" loading="lazy" onclick="openLightbox(20)">
-    <div class="photo-overlay"><span class="photo-label">Sushi Roll 1</span><span class="photo-cat">Sushi / 寿司</span></div>
-  </div>
-</div>
-<div class="photo-item" data-cat="Sushi / 寿司">
-  <div class="photo-wrap">
-    <img src="images/gallery-sushi-roll-1.jpg" alt="Sushi Roll 2" loading="lazy" onclick="openLightbox(21)">
-    <div class="photo-overlay"><span class="photo-label">Sushi Roll 2</span><span class="photo-cat">Sushi / 寿司</span></div>
-  </div>
-</div>
-<div class="photo-item" data-cat="Sushi / 寿司">
-  <div class="photo-wrap">
-    <img src="images/gallery-sushi-roll-2.jpg" alt="Sushi Roll 3" loading="lazy" onclick="openLightbox(22)">
-    <div class="photo-overlay"><span class="photo-label">Sushi Roll 3</span><span class="photo-cat">Sushi / 寿司</span></div>
+  <div class="photo-wrap soon-tile" style="cursor:default;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.2rem;background:#1c1c1c;color:#f3ead7">
+    <div style="font-size:2rem;margin-bottom:.6rem">🍣</div>
+    <div style="font-size:1rem;letter-spacing:.08em;margin-bottom:.4rem">Sushi</div>
+    <div style="font-size:.95rem;line-height:1.6" data-pl="Wkrótce" data-en="Coming soon" data-ja="準備中" data-uk="Незабаром" data-be="Хутка">Wkrótce</div>
   </div>
 </div>
 <div class="photo-item" data-cat="Ramen / ラーメン">
@@ -326,9 +315,9 @@ const imgs = ["images/gallery-img.jpg",
 "images/gallery-chashu-don.jpg",
 "images/gallery-chashu-don-2.jpg",
 "images/gallery-curry.jpg",
-"images/gallery-fried-mix.jpg",
-"images/gallery-sushi-roll-1.jpg",
-"images/gallery-sushi-roll-2.jpg",
+null,
+null,
+null,
 "images/gallery-sushi-roll-3.jpg",
 "images/gallery-corn-ramen-2.jpg"];
 let currentIdx=0;
@@ -343,7 +332,8 @@ function closeLightbox(e){
   }
 }
 function moveLightbox(dir){
-  currentIdx=(currentIdx+dir+imgs.length)%imgs.length;
+  // 寿司の写真は準備中のため null（非表示）。飛ばして次の写真へ
+  do { currentIdx=(currentIdx+dir+imgs.length)%imgs.length; } while(!imgs[currentIdx]);
   document.getElementById('lb-img').src=imgs[currentIdx];
 }
 document.addEventListener('keydown',function(e){
