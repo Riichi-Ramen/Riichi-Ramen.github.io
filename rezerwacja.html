@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- rezerwacja.html ・ v1.1-club-off-20260909 -->
+<!-- rezerwacja.html ・ v1.2-monday-i18n-20261020 -->
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
@@ -62,6 +62,10 @@ input:focus,select:focus{border-color:var(--red)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 @media(max-width:520px){.form-row{grid-template-columns:1fr;gap:0}}
 .note{font-size:11px;color:var(--muted);margin-top:.4rem;line-height:1.5}
+.day-warn{margin-top:.5rem;padding:.6rem .7rem;border-left:3px solid var(--red);
+  background:#fdf2f0;border-radius:2px;font-size:12px;line-height:1.65;color:#8a2a1d}
+.day-warn b{font-weight:600}
+.day-warn span{display:block}
 
 .check{display:flex;align-items:flex-start;gap:.6rem;cursor:pointer;font-size:11.5px;color:var(--muted);line-height:1.55;margin-bottom:.75rem}
 .check input{width:auto;margin-top:2px;flex-shrink:0;accent-color:var(--red)}
@@ -151,6 +155,7 @@ footer a{color:var(--red);text-decoration:none}
         <div class="form-group">
           <label class="field" data-pl="Data" data-en="Date" data-ja="予約日" data-uk="Дата" data-be="Дата">Data</label>
           <input type="date" id="reservDate" required onchange="updateDayOfWeek()">
+          <div class="day-warn" id="dayWarn" hidden></div>
         </div>
         <div class="form-group">
           <label class="field" data-pl="Godzina" data-en="Time" data-ja="時間" data-uk="Час" data-be="Час">Godzina</label>
@@ -218,12 +223,12 @@ var GAS_URL = 'https://script.google.com/macros/s/AKfycbztP0245VXY7DRrjOQC9m4tu-
 var REGISTER_URL = 'https://riichi-ramen.github.io/wabinavi-order/stamp.html';
 
 /* ── 🎁 会員機能の表示・照合を行うか（2026-09-09 追加）─────────
-   会員制度は10月開始予定。それまで、このページでは
+   会員制度・ポイント付与は未開始のため、このページでは
      ・「Wabi Navi Club の会員の方は…」の黄色い案内
      ・メール入力時の会員確認バナー（照合通信を含む）
      ・送信完了画面の会員向け文言・入会案内
    をすべて出さない。GASの SHOW_MEMBER_INVITE（24_Web.gs）と対になる設定。
-   10月に開始するときは true に戻すだけでよい。
+   開始するときは true に戻すだけでよい。
    ※ 予約の送信・確認メール・シート記録はこの設定の影響を受けない。
    ※ サーバー側（handleWebReservation）の会員照合は従来どおり動くので、
      予約シートへの会員ID記録と店への「⭐会員」通知は残る。 */
@@ -278,7 +283,12 @@ var T = {
     ja:'送信できませんでした。通信状態をご確認いただくか、お電話ください：(+48) 693 865 271',
     uk:'Не вдалося надіслати. Зателефонуйте: (+48) 693 865 271',
     be:'Не атрымалася адправіць. Патэлефануйце: (+48) 693 865 271'},
-  monday:{pl:'Restauracja nieczynna w poniedziałki.',en:'Closed on Mondays.',ja:'月曜日は定休日です。',uk:'У понеділок зачинено.',be:'У панядзелак зачынена.'}
+  monday:{
+    pl:'Poniedziałek — nieczynne. Prosimy wybrać inny dzień.',
+    en:'Closed on Mondays. Please choose another day.',
+    ja:'月曜日は定休日です。別の日をお選びください。',
+    uk:'У понеділок зачинено. Оберіть, будь ласка, інший день.',
+    be:'У панядзелак зачынена. Абярыце, калі ласка, іншы дзень.'}
 };
 function t(k){ return (T[k] && (T[k][currentLang] || T[k].pl)) || ''; }
 
@@ -289,6 +299,8 @@ function setLang(lang, btn){
   if (btn) btn.classList.add('active');
   var els = document.querySelectorAll('[data-' + lang + ']');
   for (var j = 0; j < els.length; j++) els[j].textContent = els[j].getAttribute('data-' + lang);
+  var dw = document.getElementById('dayWarn');
+  if (dw && !dw.hidden) showDayWarn();   // 表示中なら選択言語の行を差し替える
   renderMemberBanner();
 }
 
@@ -313,16 +325,37 @@ function buildTimeOptions(dow){
   if (keep) sel.value = keep;
 }
 
+/* 月曜を選んだときの案内。ネイティブの alert は1言語しか出せないうえ、
+   OSの言語で「OK」が出て戸惑わせるため、画面内に PL/EN 併記で表示する。
+   言語バーで ja/uk/be を選んでいる場合は、その言語も1行足す。 */
+function showDayWarn(){
+  var box = document.getElementById('dayWarn');
+  if (!box) return;
+  var lines = ['<b>' + esc(T.monday.pl) + '</b>', '<span>' + esc(T.monday.en) + '</span>'];
+  if (currentLang !== 'pl' && currentLang !== 'en'){
+    lines.push('<span>' + esc(t('monday')) + '</span>');
+  }
+  box.innerHTML = lines.join('');
+  box.hidden = false;
+}
+
+function hideDayWarn(){
+  var box = document.getElementById('dayWarn');
+  if (box) box.hidden = true;
+}
+
 function updateDayOfWeek(){
   var el = document.getElementById('reservDate');
-  if (!el.value) return;
+  if (!el.value){ hideDayWarn(); return; }
   var d = new Date(el.value + 'T00:00:00');
   if (d.getDay() === 1){
-    alert(t('monday'));
+    showDayWarn();
     el.value = '';
     buildTimeOptions(-1);
+    try { el.focus({preventScroll:true}); } catch(e){}
     return;
   }
+  hideDayWarn();
   buildTimeOptions(d.getDay());
 }
 
@@ -465,7 +498,11 @@ function submitReservation(e){
 
   if (dateVal){
     var d = new Date(dateVal + 'T00:00:00');
-    if (d.getDay() === 1){ alert(t('monday')); return false; }
+    if (d.getDay() === 1){
+      showDayWarn();
+      try { document.getElementById('reservDate').scrollIntoView({behavior:'smooth', block:'center'}); } catch(err){}
+      return false;
+    }
   }
 
   var payload = {

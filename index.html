@@ -246,7 +246,7 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
     <li><a href="menu.html" data-pl="Menu" data-en="Menu" data-ja="メニュー" data-uk="Меню" data-be="Меню">Menu</a></li>
     <li><a href="gallery.html" data-pl="Galeria" data-en="Gallery" data-ja="ギャラリー" data-uk="Галерея" data-be="Галерэя">Galeria</a></li>
     <li><a href="#onas" data-pl="O nas" data-en="About" data-ja="私たちについて" data-uk="Про нас" data-be="Пра нас">O nas</a></li>
-    <li><a href="https://riichi-ramen.github.io/wabinavi-order/card.html" data-pl="Klub" data-en="Club" data-ja="会員" data-uk="Клуб" data-be="Клуб">Klub</a></li>
+    <li data-club="1"><a href="https://riichi-ramen.github.io/wabinavi-order/card.html" data-pl="Klub" data-en="Club" data-ja="会員" data-uk="Клуб" data-be="Клуб">Klub</a></li>
     <li><a href="#rezerwacja" class="cta" data-pl="Rezerwacja" data-en="Reserve" data-ja="ご予約" data-uk="Бронювання" data-be="Браніраванне">Rezerwacja</a></li>
   </ul>
   <div class="hamburger" onclick="toggleMenu()">
@@ -256,8 +256,8 @@ footer{background:#100c06;padding:2rem 2.5rem;display:flex;justify-content:space
 <div class="mobile-menu" id="mobile-menu">
   <a href="#menu" onclick="toggleMenu()">Menu</a>
   <a href="#onas" onclick="toggleMenu()">O nas / About</a>
-  <a href="https://riichi-ramen.github.io/wabinavi-order/card.html">Klub / 会員カード</a>
-  <a href="https://riichi-ramen.github.io/wabinavi-order/stamp.html">Rejestracja / 新規登録</a>
+  <a data-club="1" href="https://riichi-ramen.github.io/wabinavi-order/card.html">Klub / 会員カード</a>
+  <a data-club="1" href="https://riichi-ramen.github.io/wabinavi-order/stamp.html">Rejestracja / 新規登録</a>
   <a href="#rezerwacja" class="cta" onclick="toggleMenu()">Rezerwacja / Reserve</a>
 </div>
 
@@ -575,6 +575,24 @@ var GAS_URL = 'https://script.google.com/macros/s/AKfycbztP0245VXY7DRrjOQC9m4tu-
 try { var _u = localStorage.getItem('wabi_gas_url'); if (_u) GAS_URL = _u; } catch(e){}
 var REGISTER_URL = 'https://riichi-ramen.github.io/wabinavi-order/stamp.html';
 
+/* ── 🎁 会員機能の表示・照合を行うか（rezerwacja.html と対の設定）─────
+   会員制度・ポイント付与は未開始のため、HPには入会勧誘を一切出さない。
+     ・ナビの「Klub」／モバイルメニューの「Klub」「Rejestracja」
+     ・予約欄上部の黄色い「Wabi Navi Club の会員の方は…」
+     ・メール入力時の会員確認バナー（照合通信を含む）
+     ・送信完了画面の会員向け文言・入会案内
+   制度を開始するときは true に戻すだけでよい。
+   ※ GAS側の SHOW_MEMBER_INVITE（24_Web.gs）と必ず揃えること。
+   ※ 予約の送信・確認メール・シート記録はこの設定の影響を受けない。
+   ※ サーバー側（handleWebReservation）の会員照合は従来どおり動くので、
+     予約シートへの会員ID記録と店への「⭐会員」通知は残る。 */
+var SHOW_MEMBER_FEATURES = false;
+
+/* 制度開始までは会員関連のリンクをDOMから取り除く（枠だけ残らないように） */
+if (!SHOW_MEMBER_FEATURES) {
+  document.querySelectorAll('[data-club]').forEach(function(el){ el.remove(); });
+}
+
 var T = {
   checking: {
     pl:'Sprawdzamy…', en:'Checking…', ja:'照合中…', uk:'Перевіряємо…', be:'Правяраем…'
@@ -684,8 +702,9 @@ function renderMemberBanner(){
   var box = document.getElementById('memberBanner');
   if (!box) return;
   var prompt = document.getElementById('memberPrompt');
-  if (prompt) prompt.classList.toggle('hidden', isMemberCached !== null);
+  if (prompt) prompt.classList.toggle('hidden', !SHOW_MEMBER_FEATURES || isMemberCached !== null);
   applyMemberFieldRules();
+  if (!SHOW_MEMBER_FEATURES){ box.style.display = 'none'; return; }
   if (isMemberCached === null){ box.style.display = 'none'; return; }
   // 「登録せずに予約へ進む」を選んだ非会員には、以後バナーを出さない
   if (isMemberCached === false && guestNoticeDismissed){ box.style.display = 'none'; return; }
@@ -731,6 +750,7 @@ function skipRegistration(){
 
 var _cmTimer = null;
 function checkMemberDebounced(){
+  if (!SHOW_MEMBER_FEATURES) return;
   clearTimeout(_cmTimer);
   _cmTimer = setTimeout(checkMember, 700);   // 入力が止まって0.7秒後に照合
 }
@@ -750,6 +770,7 @@ function applyMemberFieldRules(){
 }
 
 function checkMember(){
+  if (!SHOW_MEMBER_FEATURES) return;
   var el = document.getElementById('resEmail');
   if (!el) return;
   var email = el.value.trim();
@@ -833,8 +854,10 @@ function submitReservation(e){
       result.style.display = 'block';
       result.innerHTML =
         '<strong>' + esc(t('okTitle')) + '</strong><br>' +
-        esc(t('okMail')) + ' <span class="rr-id">' + esc(j.id) + '</span><br><br>' +
-        esc(j.isMember ? t('okMember') : t('okGuest'));
+        esc(t('okMail')) + ' <span class="rr-id">' + esc(j.id) + '</span>' +
+        (SHOW_MEMBER_FEATURES
+          ? '<br><br>' + esc(j.isMember ? t('okMember') : t('okGuest'))
+          : '');
     } else if (j && j.status === 'duplicate'){
       result.className = 'res-result';
       result.style.display = 'block';
